@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TYT 1 Aylık Plan</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #ffffff; --bg2: #f5f5f5; --bg3: #eeeeee;
+  --border: #e5e5e5; --border2: #f0f0f0;
+  --text: #1a1a1a; --text2: #555555; --text3: #888888;
+  --tab-active-bg: #e6f1fb; --tab-active-color: #185FA5;
+  --badge-bg: #eaf3de; --badge-color: #27500A;
+  --rule-num-bg: #e6f1fb; --rule-num-color: #185FA5;
+  --done-bg: #eaf3de; --done-text: #27500A;
+  --check-border: #ccc; --progress-bg: #e5e5e5; --progress-fill: #3B6D11;
+}
+[data-theme="dark"] {
+  --bg: #1a1a1a; --bg2: #242424; --bg3: #2e2e2e;
+  --border: #333333; --border2: #2a2a2a;
+  --text: #f0f0f0; --text2: #aaaaaa; --text3: #666666;
+  --tab-active-bg: #0c2d4a; --tab-active-color: #85B7EB;
+  --badge-bg: #1a2e0f; --badge-color: #9FE1CB;
+  --rule-num-bg: #0c2d4a; --rule-num-color: #85B7EB;
+  --done-bg: #1a2e0f; --done-text: #9FE1CB;
+  --check-border: #555; --progress-bg: #333; --progress-fill: #5DCAA5;
+}
+
+body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); padding: 1.5rem; max-width: 860px; margin: 0 auto; transition: background .2s, color .2s; }
+
+.topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 10px; }
+.page-title { font-size: 20px; font-weight: 500; color: var(--text); }
+.topbar-right { display: flex; align-items: center; gap: 10px; }
+.progress-label { font-size: 12px; color: var(--text2); }
+.progress-bar { width: 100px; height: 6px; background: var(--progress-bg); border-radius: 99px; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--progress-fill); border-radius: 99px; transition: width .3s; }
+.theme-btn { padding: 5px 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 12px; font-weight: 500; cursor: pointer; background: var(--bg2); color: var(--text2); transition: all .15s; }
+.theme-btn:hover { background: var(--bg3); }
+
+.week-tabs { display: flex; gap: 6px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.tab { padding: 7px 18px; border-radius: 8px; border: 1px solid var(--border); font-size: 13px; font-weight: 500; cursor: pointer; color: var(--text2); background: transparent; transition: all .15s; }
+.tab:hover { background: var(--bg2); }
+.tab.active { background: var(--tab-active-bg); color: var(--tab-active-color); border-color: transparent; }
+
+.week-body { display: none; }
+.week-body.visible { display: block; }
+.week-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.25rem; gap: 12px; flex-wrap: wrap; }
+.week-title { font-size: 16px; font-weight: 500; color: var(--text); }
+.week-sub { font-size: 13px; color: var(--text2); margin-top: 3px; }
+.net-badge { padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; white-space: nowrap; background: var(--badge-bg); color: var(--badge-color); }
+
+.subject-block { margin-bottom: 1.25rem; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.subject-header { padding: 10px 14px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+.subject-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.subject-name { font-size: 14px; font-weight: 500; color: var(--text); }
+.subject-gain { margin-left: auto; font-size: 12px; color: var(--text2); }
+
+.topic-row { display: flex; align-items: center; gap: 10px; padding: 9px 14px; border-bottom: 1px solid var(--border2); cursor: pointer; transition: background .12s; user-select: none; }
+.topic-row:last-child { border-bottom: none; }
+.topic-row:hover { background: var(--bg2); }
+.topic-row.done { background: var(--done-bg); }
+.topic-row.done .topic-name { color: var(--done-text); text-decoration: line-through; text-decoration-color: var(--done-text); opacity: 0.75; }
+.topic-row.done .topic-net { color: var(--done-text); opacity: 0.75; }
+
+.check { width: 18px; height: 18px; border-radius: 4px; border: 1.5px solid var(--check-border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all .15s; }
+.topic-row.done .check { background: var(--progress-fill); border-color: var(--progress-fill); }
+.check-icon { display: none; }
+.topic-row.done .check-icon { display: block; }
+
+.diff-pill { padding: 2px 9px; border-radius: 99px; font-size: 11px; font-weight: 500; flex-shrink: 0; min-width: 44px; text-align: center; }
+.d-easy { background: #EAF3DE; color: #27500A; }
+.d-mid { background: #FAEEDA; color: #633806; }
+.d-hard { background: #FCEBEB; color: #791F1F; }
+[data-theme="dark"] .d-easy { background: #1a2e0f; color: #9FE1CB; }
+[data-theme="dark"] .d-mid { background: #2e1e06; color: #FAC775; }
+[data-theme="dark"] .d-hard { background: #2e0f0f; color: #F09595; }
+
+.topic-name { font-size: 13px; flex: 1; color: var(--text); }
+.topic-net { font-size: 13px; font-weight: 500; color: var(--text2); white-space: nowrap; }
+
+.days-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-bottom: 1.5rem; }
+.day-card { background: var(--bg2); border-radius: 8px; padding: 8px 6px; text-align: center; }
+.day-label { font-size: 11px; color: var(--text3); margin-bottom: 4px; }
+.day-focus { font-size: 11px; font-weight: 500; line-height: 1.3; color: var(--text); }
+.day-sub { font-size: 10px; color: var(--text3); margin-top: 2px; }
+
+.summary-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-bottom: 1.5rem; }
+.sum-card { background: var(--bg2); border-radius: 8px; padding: 10px; }
+.sum-label { font-size: 11px; color: var(--text2); margin-bottom: 3px; }
+.sum-val { font-size: 18px; font-weight: 500; color: var(--text); }
+.sum-sub { font-size: 11px; color: var(--text3); margin-top: 2px; }
+
+.rule-box { background: var(--bg2); border-radius: 8px; padding: 12px 14px; margin-bottom: 1.5rem; }
+.rule-row { display: flex; gap: 10px; padding: 5px 0; font-size: 13px; color: var(--text2); border-bottom: 1px solid var(--border); align-items: flex-start; }
+.rule-row:last-child { border-bottom: none; }
+.rule-num { width: 20px; height: 20px; border-radius: 50%; background: var(--rule-num-bg); color: var(--rule-num-color); font-size: 11px; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+
+.reset-btn { margin-top: 1rem; padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border); font-size: 12px; color: var(--text3); background: transparent; cursor: pointer; transition: all .15s; }
+.reset-btn:hover { background: var(--bg2); color: var(--text2); }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="page-title">TYT — 1 Aylık Çalışma Planı</div>
+  <div class="topbar-right">
+    <span class="progress-label" id="prog-label">0 / 25 konu</span>
+    <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+    <button class="theme-btn" onclick="toggleTheme()" id="theme-btn">Karanlık mod</button>
+  </div>
+</div>
+
+<div class="week-tabs">
+  <button class="tab active" onclick="show(0)">Hafta 1</button>
+  <button class="tab" onclick="show(1)">Hafta 2</button>
+  <button class="tab" onclick="show(2)">Hafta 3</button>
+  <button class="tab" onclick="show(3)">Hafta 4</button>
+  <button class="tab" onclick="show(4)">Genel Bakış</button>
+</div>
+
+<div class="week-body visible" id="w0">
+  <div class="week-header">
+    <div><div class="week-title">Hafta 1 — Temel kazanım haftası</div><div class="week-sub">Kolay konulardan hızlı net topla, motivasyonu koru</div></div>
+    <div class="net-badge">+5 / +8 net</div>
+  </div>
+  <div class="days-row">
+    <div class="day-card"><div class="day-label">Pzt</div><div class="day-focus">Dil Bilgisi</div><div class="day-sub">Sözcük türleri</div></div>
+    <div class="day-card"><div class="day-label">Sal</div><div class="day-focus">Matematik</div><div class="day-sub">Temel işlemler</div></div>
+    <div class="day-card"><div class="day-label">Çar</div><div class="day-focus">Fen</div><div class="day-sub">Biyoloji temeli</div></div>
+    <div class="day-card"><div class="day-label">Per</div><div class="day-focus">Dil Bilgisi</div><div class="day-sub">Cümle ögeleri</div></div>
+    <div class="day-card"><div class="day-label">Cum</div><div class="day-focus">Matematik</div><div class="day-sub">Sayılar + EBOB</div></div>
+    <div class="day-card"><div class="day-label">Cmt</div><div class="day-focus">Fen</div><div class="day-sub">Biyoloji bitir</div></div>
+    <div class="day-card"><div class="day-label">Paz</div><div class="day-focus">Deneme</div><div class="day-sub">Analiz + tekrar</div></div>
+  </div>
+  <div class="subject-block">
+    <div class="subject-header"><div class="subject-dot" style="background:#3B6D11"></div><div class="subject-name">Dil bilgisi</div><div class="subject-gain">+2 / +3 net hedef</div></div>
+    <div class="topic-row" data-id="t1" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">Sözcük türleri (isim, sıfat, zamir, zarf)</span><span class="topic-net">+1.0–1.5 net</span></div>
+    <div class="topic-row" data-id="t2" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">Cümle ögeleri (özne, yüklem, nesne)</span><span class="topic-net">+1.0–1.5 net</span></div>
+  </div>
+  <div class="subject-block">
+    <div class="subject-header"><div class="subject-dot" style="background:#185FA5"></div><div class="subject-name">Matematik</div><div class="subject-gain">+2 / +3 net hedef</div></div>
+    <div class="topic-row" data-id="t3" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">Sayı kümeleri ve temel işlemler</span><span class="topic-net">+1.0–1.5 net</span></div>
+    <div class="topic-row" data-id="t4" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">EBOB–EKOK ve bölünebilme kuralları</span><span class="topic-net">+1.0–1.5 net</span></div>
+  </div>
+  <div class="subject-block">
+    <div class="subject-header"><div class="subject-dot" style="background:#993C1D"></div><div class="subject-name">Fen bilimleri</div><div class="subject-gain">+1 / +2 net hedef</div></div>
+    <div class="topic-row" data-id="t5" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">Hücre ve organeller (ezber ağırlıklı)</span><span class="topic-net">+0.5–1.0 net</span></div>
+    <div class="topic-row" data-id="t6" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">Canlıların sınıflandırılması</span><span class="topic-net">+0.5–1.0 net</span></div>
+  </div>
+</div>
+
+<div class="week-body" id="w1">
+  <div class="week-header">
+    <div><div class="week-title">Hafta 2 — İvme haftası</div><div class="week-sub">Orta zorluk konulara geç, hız kazan</div></div>
+    <div class="net-badge">+5 / +7 net</div>
+  </div>
+  <div class="days-row">
+    <div class="day-card"><div class="day-label">Pzt</div><div class="day-focus">Dil Bilgisi</div><div class="day-sub">Fiiller + ekler</div></div>
+    <div class="day-card"><div class="day-label">Sal</div><div class="day-focus">Matematik</div><div class="day-sub">Kesirler + yüzde</div></div>
+    <div class="day-card"><div class="day-label">Çar</div><div class="day-focus">Fen</div><div class="day-sub">Kimya temeli</div></div>
+    <div class="day-card"><div class="day-label">Per</div><div class="day-focus">Dil Bilgisi</div><div class="day-sub">Anlam bilgisi</div></div>
+    <div class="day-card"><div class="day-label">Cum</div><div class="day-focus">Matematik</div><div class="day-sub">Oran–orantı</div></div>
+    <div class="day-card"><div class="day-label">Cmt</div><div class="day-focus">Fen</div><div class="day-sub">Fizik temeli</div></div>
+    <div class="day-card"><div class="day-label">Paz</div><div class="day-focus">Deneme</div><div class="day-sub">Analiz + tekrar</div></div>
+  </div>
+  <div class="subject-block">
+    <div class="subject-header"><div class="subject-dot" style="background:#3B6D11"></div><div class="subject-name">Dil bilgisi</div><div class="subject-gain">+2 / +3 net hedef</div></div>
+    <div class="topic-row" data-id="t7" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">Fiil çekimleri ve zaman ekleri</span><span class="topic-net">+1.0–1.5 net</span></div>
+    <div class="topic-row" data-id="t8" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Anlam bilgisi (mecaz, deyim, atasözü)</span><span class="topic-net">+1.0–1.5 net</span></div>
+  </div>
+  <div class="subject-block">
+    <div class="subject-header"><div class="subject-dot" style="background:#185FA5"></div><div class="subject-name">Matematik</div><div class="subject-gain">+2 / +2.5 net hedef</div></div>
+    <div class="topic-row" data-id="t9" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">Kesirler, yüzdeler, ondalıklar</span><span class="topic-net">+1.0–1.5 net</span></div>
+    <div class="topic-row" data-id="t10" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Oran–orantı ve denklem çözme</span><span class="topic-net">+1.0–1.0 net</span></div>
+  </div>
+  <div class="subject-block">
+    <div class="subject-header"><div class="subject-dot" style="background:#993C1D"></div><div class="subject-name">Fen bilimleri</div><div class="subject-gain">+1 / +1.5 net hedef</div></div>
+    <div class="topic-row" data-id="t11" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Madde ve özellikleri (kimya)</span><span class="topic-net">+0.5–1.0 net</span></div>
+    <div class="topic-row" data-id="t12" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">Kuvvet ve hareket temeli (fizik)</span><span class="topic-net">+0.5–0.5 net</span></div>
+  </div>
+</div>
+
+<div class="week-body" id="w2">
+  <div class="week-header">
+    <div><div class="week-title">Hafta 3 — Derinleşme haftası</div><div class="week-sub">Puan artışının en büyük olduğu hafta, odak en üst seviyede olmalı</div></div>
+    <div class="net-badge">+5 / +6 net</div>
+  </div>
+  <div class="days-row">
+    <div class="day-card"><div class="day-label">Pzt</div><div class="day-focus">Matematik</div><div class="day-sub">1. derece denklem</div></div>
+    <div class="day-card"><div class="day-label">Sal</div><div class="day-focus">Dil Bilgisi</div><div class="day-sub">Yapı bilgisi</div></div>
+    <div class="day-card"><div class="day-label">Çar</div><div class="day-focus">Fen</div><div class="day-sub">Kimya işlemler</div></div>
+    <div class="day-card"><div class="day-label">Per</div><div class="day-focus">Matematik</div><div class="day-sub">Problemler</div></div>
+    <div class="day-card"><div class="day-label">Cum</div><div class="day-focus">Dil Bilgisi</div><div class="day-sub">Paragraf</div></div>
+    <div class="day-card"><div class="day-label">Cmt</div><div class="day-focus">Fen</div><div class="day-sub">Fizik problemler</div></div>
+    <div class="day-card"><div class="day-label">Paz</div><div class="day-focus">Deneme</div><div class="day-sub">Tam deneme</div></div>
+  </div>
+  <div class="subject-block">
+    <div class="subject-header"><div class="subject-dot" style="background:#3B6D11"></div><div class="subject-name">Dil bilgisi</div><div class="subject-gain">+1.5 / +2 net hedef</div></div>
+    <div class="topic-row" data-id="t13" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Yapım ekleri ve sözcük yapısı</span><span class="topic-net">+0.5–1.0 net</span></div>
+    <div class="topic-row" data-id="t14" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Paragraf — ana fikir, başlık bulma</span><span class="topic-net">+1.0–1.0 net</span></div>
+  </div>
+  <div class="subject-block">
+    <div class="subject-header"><div class="subject-dot" style="background:#185FA5"></div><div class="subject-name">Matematik</div><div class="subject-gain">+2 / +2.5 net hedef</div></div>
+    <div class="topic-row" data-id="t15" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">1. dereceden denklemler ve eşitsizlikler</span><span class="topic-net">+1.0–1.5 net</span></div>
+    <div class="topic-row" data-id="t16" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Temel problem çözme (yaş, hız, karışım)</span><span class="topic-net">+1.0–1.0 net</span></div>
+  </div>
+  <div class="subject-block">
+    <div class="subject-header"><div class="subject-dot" style="background:#993C1D"></div><div class="subject-name">Fen bilimleri</div><div class="subject-gain">+1.5 / +1.5 net hedef</div></div>
+    <div class="topic-row" data-id="t17" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Mol hesapları ve kimyasal tepkimeler</span><span class="topic-net">+0.5–1.0 net</span></div>
+    <div class="topic-row" data-id="t18" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Basınç, kaldırma kuvveti (fizik)</span><span class="topic-net">+0.5–0.5 net</span></div>
+  </div>
+</div>
+
+<div class="week-body" id="w3">
+  <div class="week-header">
+    <div><div class="week-title">Hafta 4 — Pekiştirme ve deneme haftası</div><div class="week-sub">Zor konular + eksikleri kapat + hız çalışması</div></div>
+    <div class="net-badge">+4 / +6 net</div>
+  </div>
+  <div class="days-row">
+    <div class="day-card"><div class="day-label">Pzt</div><div class="day-focus">Matematik</div><div class="day-sub">Fonksiyon temeli</div></div>
+    <div class="day-card"><div class="day-label">Sal</div><div class="day-focus">Dil Bilgisi</div><div class="day-sub">Yazım + noktalama</div></div>
+    <div class="day-card"><div class="day-label">Çar</div><div class="day-focus">Fen</div><div class="day-sub">Zor konular</div></div>
+    <div class="day-card"><div class="day-label">Per</div><div class="day-focus">Tüm dersler</div><div class="day-sub">Eksik tarama</div></div>
+    <div class="day-card"><div class="day-label">Cum</div><div class="day-focus">Matematik</div><div class="day-sub">Geometri temeli</div></div>
+    <div class="day-card"><div class="day-label">Cmt</div><div class="day-focus">Deneme</div><div class="day-sub">Tam deneme</div></div>
+    <div class="day-card"><div class="day-label">Paz</div><div class="day-focus">Analiz</div><div class="day-sub">Son tekrar</div></div>
+  </div>
+  <div class="subject-block">
+    <div class="subject-header"><div class="subject-dot" style="background:#3B6D11"></div><div class="subject-name">Dil bilgisi</div><div class="subject-gain">+1 / +1.5 net hedef</div></div>
+    <div class="topic-row" data-id="t19" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-hard">Zor</span><span class="topic-name">Yazım kuralları ve noktalama işaretleri</span><span class="topic-net">+0.5–1.0 net</span></div>
+    <div class="topic-row" data-id="t20" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-hard">Zor</span><span class="topic-name">Anlam ilişkileri ve sözcük türetme</span><span class="topic-net">+0.5–0.5 net</span></div>
+  </div>
+  <div class="subject-block">
+    <div class="subject-header"><div class="subject-dot" style="background:#185FA5"></div><div class="subject-name">Matematik</div><div class="subject-gain">+2 / +3 net hedef</div></div>
+    <div class="topic-row" data-id="t21" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-hard">Zor</span><span class="topic-name">Fonksiyon ve grafik yorumlama</span><span class="topic-net">+0.5–1.0 net</span></div>
+    <div class="topic-row" data-id="t22" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Temel geometri (üçgen, çember alanlar)</span><span class="topic-net">+1.0–1.5 net</span></div>
+    <div class="topic-row" data-id="t23" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-hard">Zor</span><span class="topic-name">Sayma ve olasılık temeli</span><span class="topic-net">+0.5–0.5 net</span></div>
+  </div>
+  <div class="subject-block">
+    <div class="subject-header"><div class="subject-dot" style="background:#993C1D"></div><div class="subject-name">Fen bilimleri</div><div class="subject-gain">+1 / +1.5 net hedef</div></div>
+    <div class="topic-row" data-id="t24" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-hard">Zor</span><span class="topic-name">Elektrik devreleri ve hesaplar</span><span class="topic-net">+0.5–1.0 net</span></div>
+    <div class="topic-row" data-id="t25" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-hard">Zor</span><span class="topic-name">Genetik ve DNA (biyoloji)</span><span class="topic-net">+0.5–0.5 net</span></div>
+  </div>
+</div>
+
+<div class="week-body" id="w4">
+  <div class="summary-grid">
+    <div class="sum-card"><div class="sum-label">Toplam min artış</div><div class="sum-val">+19</div><div class="sum-sub">net hedef</div></div>
+    <div class="sum-card"><div class="sum-label">Toplam max artış</div><div class="sum-val">+27</div><div class="sum-sub">net hedef</div></div>
+    <div class="sum-card"><div class="sum-label">Hedef net</div><div class="sum-val">55–70</div><div class="sum-sub">ay sonu</div></div>
+    <div class="sum-card"><div class="sum-label">Tamamlanan</div><div class="sum-val" id="done-count">0 / 25</div><div class="sum-sub">konu</div></div>
+  </div>
+  <div class="subject-block">
+    <div class="subject-header"><div class="subject-dot" style="background:#3B6D11"></div><div class="subject-name">Dil bilgisi — 4 hafta toplam</div><div class="subject-gain">+6.5 / +9.5 net</div></div>
+    <div class="topic-row" data-id="t1" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">Sözcük türleri</span><span class="topic-net">+1.0–1.5</span></div>
+    <div class="topic-row" data-id="t2" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">Cümle ögeleri</span><span class="topic-net">+1.0–1.5</span></div>
+    <div class="topic-row" data-id="t7" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">Fiil çekimleri</span><span class="topic-net">+1.0–1.5</span></div>
+    <div class="topic-row" data-id="t8" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Anlam bilgisi (deyim, mecaz)</span><span class="topic-net">+1.0–1.5</span></div>
+    <div class="topic-row" data-id="t13" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Yapı bilgisi ve paragraf</span><span class="topic-net">+1.0–1.5</span></div>
+    <div class="topic-row" data-id="t19" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-hard">Zor</span><span class="topic-name">Yazım + noktalama + anlam ilişkileri</span><span class="topic-net">+0.5–1.5</span></div>
+  </div>
+  <div class="subject-block">
+    <div class="subject-header"><div class="subject-dot" style="background:#185FA5"></div><div class="subject-name">Matematik — 4 hafta toplam</div><div class="subject-gain">+8 / +12 net</div></div>
+    <div class="topic-row" data-id="t3" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">Sayı kümeleri + EBOB-EKOK</span><span class="topic-net">+1.5–2.5</span></div>
+    <div class="topic-row" data-id="t9" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">Kesirler, yüzdeler, ondalıklar</span><span class="topic-net">+1.0–1.5</span></div>
+    <div class="topic-row" data-id="t10" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Oran–orantı + denklem</span><span class="topic-net">+1.5–2.0</span></div>
+    <div class="topic-row" data-id="t15" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Problemler (yaş, hız, karışım)</span><span class="topic-net">+1.5–2.0</span></div>
+    <div class="topic-row" data-id="t22" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Temel geometri</span><span class="topic-net">+1.0–1.5</span></div>
+    <div class="topic-row" data-id="t21" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-hard">Zor</span><span class="topic-name">Fonksiyon + sayma + olasılık</span><span class="topic-net">+0.5–1.5</span></div>
+  </div>
+  <div class="subject-block">
+    <div class="subject-header"><div class="subject-dot" style="background:#993C1D"></div><div class="subject-name">Fen bilimleri — 4 hafta toplam</div><div class="subject-gain">+4 / +6 net</div></div>
+    <div class="topic-row" data-id="t5" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">Hücre + canlılar (biyoloji)</span><span class="topic-net">+1.0–1.5</span></div>
+    <div class="topic-row" data-id="t11" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Madde + tepkimeler (kimya)</span><span class="topic-net">+1.0–1.5</span></div>
+    <div class="topic-row" data-id="t17" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Kuvvet + basınç (fizik)</span><span class="topic-net">+0.5–1.0</span></div>
+    <div class="topic-row" data-id="t24" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-hard">Zor</span><span class="topic-name">Elektrik + genetik</span><span class="topic-net">+0.5–1.0</span></div>
+  </div>
+  <div class="rule-box">
+    <div class="rule-row"><div class="rule-num">1</div><span>Her hafta pazar günü mutlaka tam deneme çöz, sonuçları analiz et — hangi konudan net kaybettiğini tespit et.</span></div>
+    <div class="rule-row"><div class="rule-num">2</div><span>Günlük minimum 30 soru hedefle. Konu çalışırken 20, deneme stiliyle 10 soru yeterli.</span></div>
+    <div class="rule-row"><div class="rule-num">3</div><span>Net artışı 2 hafta üst üste duraksarsa o konuyu bırak, geç — zaman en değerli kaynağındır.</span></div>
+    <div class="rule-row"><div class="rule-num">4</div><span>Fen bilimleri için biyoloji ve kimyanın ezber kısmına 30 dk, problem kısmına 30 dk ayır.</span></div>
+  </div>
+  <button class="reset-btn" onclick="resetAll()">Tüm işaretleri sıfırla</button>
+</div>
+
+<script>
+const TOTAL = 25;
+const LS_KEY = 'tyt_done';
+const LS_THEME = 'tyt_theme';
+
+function loadDone() {
+  try { return JSON.parse(localStorage.getItem(LS_KEY)) || []; } catch { return []; }
+}
+function saveDone(arr) {
+  try { localStorage.setItem(LS_KEY, JSON.stringify(arr)); } catch {}
+}
+
+function toggle(row) {
+  const id = row.dataset.id;
+  let done = loadDone();
+  const idx = done.indexOf(id);
+  if (idx === -1) done.push(id); else done.splice(idx, 1);
+  saveDone(done);
+  applyState(done);
+}
+
+function applyState(done) {
+  document.querySelectorAll('.topic-row[data-id]').forEach(row => {
+    row.classList.toggle('done', done.includes(row.dataset.id));
+  });
+  const count = done.length;
+  const pct = Math.round((count / TOTAL) * 100);
+  document.getElementById('prog-label').textContent = count + ' / ' + TOTAL + ' konu';
+  document.getElementById('prog-fill').style.width = pct + '%';
+  const dc = document.getElementById('done-count');
+  if (dc) dc.textContent = count + ' / ' + TOTAL;
+}
+
+function resetAll() {
+  if (confirm('Tüm tamamlanan konular sıfırlansın mı?')) {
+    saveDone([]);
+    applyState([]);
+  }
+}
+
+function show(i) {
+  document.querySelectorAll('.week-body').forEach((el, idx) => el.classList.toggle('visible', idx === i));
+  document.querySelectorAll('.tab').forEach((el, idx) => el.classList.toggle('active', idx === i));
+}
+
+function toggleTheme() {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  const next = isDark ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  document.getElementById('theme-btn').textContent = isDark ? 'Karanlık mod' : 'Aydınlık mod';
+  try { localStorage.setItem(LS_THEME, next); } catch {}
+}
+
+(function init() {
+  try {
+    const saved = localStorage.getItem(LS_THEME);
+    if (saved) {
+      document.documentElement.setAttribute('data-theme', saved);
+      document.getElementById('theme-btn').textContent = saved === 'dark' ? 'Aydınlık mod' : 'Karanlık mod';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      document.getElementById('theme-btn').textContent = 'Aydınlık mod';
+    }
+  } catch {}
+  applyState(loadDone());
+})();
+</script>
+</body>
+</html>
