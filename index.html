@@ -3,356 +3,934 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TYT 1 Aylık Plan</title>
+<title>YKS 10 Haftalık Optimize Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --bg: #ffffff; --bg2: #f5f5f5; --bg3: #eeeeee;
-  --border: #e5e5e5; --border2: #f0f0f0;
-  --text: #1a1a1a; --text2: #555555; --text3: #888888;
-  --tab-active-bg: #e6f1fb; --tab-active-color: #185FA5;
-  --badge-bg: #eaf3de; --badge-color: #27500A;
-  --rule-num-bg: #e6f1fb; --rule-num-color: #185FA5;
-  --done-bg: #eaf3de; --done-text: #27500A;
-  --check-border: #ccc; --progress-bg: #e5e5e5; --progress-fill: #3B6D11;
+:root{
+  --bg:#fff;--bg2:#f4f4f5;--card:#fff;
+  --b:#e4e4e7;--bs:#d4d4d8;
+  --t:#09090b;--tm:#71717a;--tf:#a1a1aa;
+  --r:10px;--rs:6px;
+  --blue:#eff6ff;--blue-t:#1d4ed8;
+  --green:#f0fdf4;--green-t:#15803d;
+  --amber:#fffbeb;--amber-t:#b45309;
+  --pink:#fdf2f8;--pink-t:#9d174d;
+  --purple:#faf5ff;--purple-t:#7e22ce;
+  --zinc:#f4f4f5;--zinc-t:#52525b;
+  --teal:#f0fdfa;--teal-t:#0f766e;
+  --sky:#f0f9ff;--sky-t:#0369a1;
+  --red:#fff1f2;--red-t:#be123c;
+  --orange:#fff7ed;--orange-t:#c2410c;
 }
-[data-theme="dark"] {
-  --bg: #1a1a1a; --bg2: #242424; --bg3: #2e2e2e;
-  --border: #333333; --border2: #2a2a2a;
-  --text: #f0f0f0; --text2: #aaaaaa; --text3: #666666;
-  --tab-active-bg: #0c2d4a; --tab-active-color: #85B7EB;
-  --badge-bg: #1a2e0f; --badge-color: #9FE1CB;
-  --rule-num-bg: #0c2d4a; --rule-num-color: #85B7EB;
-  --done-bg: #1a2e0f; --done-text: #9FE1CB;
-  --check-border: #555; --progress-bg: #333; --progress-fill: #5DCAA5;
+[data-theme="dark"]{
+  --bg:#09090b;--bg2:#111113;--card:#18181b;
+  --b:#27272a;--bs:#3f3f46;
+  --t:#fafafa;--tm:#a1a1aa;--tf:#71717a;
+  --blue:#1e3a5f;--blue-t:#93c5fd;
+  --green:#14532d;--green-t:#86efac;
+  --amber:#451a03;--amber-t:#fcd34d;
+  --pink:#500724;--pink-t:#f9a8d4;
+  --purple:#3b0764;--purple-t:#d8b4fe;
+  --zinc:#27272a;--zinc-t:#a1a1aa;
+  --teal:#134e4a;--teal-t:#5eead4;
+  --sky:#0c2a3f;--sky-t:#7dd3fc;
+  --red:#4c0519;--red-t:#fda4af;
+  --orange:#431407;--orange-t:#fb923c;
 }
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t);font-size:14px;line-height:1.6;transition:background .2s,color .2s}
+.w{max-width:1000px;margin:0 auto;padding:0 18px}
 
-body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); padding: 1.5rem; max-width: 860px; margin: 0 auto; transition: background .2s, color .2s; }
+/* HEADER */
+.hdr{border-bottom:1px solid var(--b);padding:13px 0;position:sticky;top:0;background:var(--bg);z-index:100;backdrop-filter:blur(10px)}
+.hdr-in{display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600}
+.pills{display:flex;gap:3px}
+.pill{font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;letter-spacing:.04em}
+.p-tyt{background:var(--t);color:var(--bg)}
+.p-ayt{background:var(--amber);color:var(--amber-t)}
+.p-opt{background:var(--green);color:var(--green-t);font-size:9px}
+.tbtn{width:32px;height:32px;border-radius:var(--rs);border:1px solid var(--b);background:var(--card);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--tm);transition:background .15s}
+.tbtn:hover{background:var(--bg2)}
 
-.topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 10px; }
-.page-title { font-size: 20px; font-weight: 500; color: var(--text); }
-.topbar-right { display: flex; align-items: center; gap: 10px; }
-.progress-label { font-size: 12px; color: var(--text2); }
-.progress-bar { width: 100px; height: 6px; background: var(--progress-bg); border-radius: 99px; overflow: hidden; }
-.progress-fill { height: 100%; background: var(--progress-fill); border-radius: 99px; transition: width .3s; }
-.theme-btn { padding: 5px 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 12px; font-weight: 500; cursor: pointer; background: var(--bg2); color: var(--text2); transition: all .15s; }
-.theme-btn:hover { background: var(--bg3); }
+/* HERO */
+.hero{padding:40px 0 32px;border-bottom:1px solid var(--b)}
+.ey{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--tf);margin-bottom:10px}
+.h1{font-size:clamp(24px,4vw,38px);font-weight:600;letter-spacing:-.025em;line-height:1.15;margin-bottom:12px}
+.sub{font-size:13px;color:var(--tm);line-height:1.8;max-width:600px}
+.stats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-top:26px}
+.sc{background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:12px 14px}
+.sc-l{font-size:9px;color:var(--tf);text-transform:uppercase;letter-spacing:.07em;margin-bottom:2px}
+.sc-v{font-size:18px;font-weight:600;letter-spacing:-.02em}
+.sc-s{font-size:10px;color:var(--tm);margin-top:1px}
 
-.week-tabs { display: flex; gap: 6px; margin-bottom: 1.5rem; flex-wrap: wrap; }
-.tab { padding: 7px 18px; border-radius: 8px; border: 1px solid var(--border); font-size: 13px; font-weight: 500; cursor: pointer; color: var(--text2); background: transparent; transition: all .15s; }
-.tab:hover { background: var(--bg2); }
-.tab.active { background: var(--tab-active-bg); color: var(--tab-active-color); border-color: transparent; }
+/* ALERT BOX */
+.alert{border:1px solid var(--amber);background:var(--amber);color:var(--amber-t);border-radius:var(--r);padding:14px 18px;font-size:13px;line-height:1.8;margin:24px 0}
+.alert strong{font-weight:600}
 
-.week-body { display: none; }
-.week-body.visible { display: block; }
-.week-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.25rem; gap: 12px; flex-wrap: wrap; }
-.week-title { font-size: 16px; font-weight: 500; color: var(--text); }
-.week-sub { font-size: 13px; color: var(--text2); margin-top: 3px; }
-.net-badge { padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 500; white-space: nowrap; background: var(--badge-bg); color: var(--badge-color); }
+/* SECTION */
+.sec{padding:32px 0;border-bottom:1px solid var(--b)}
+.sec-h{font-size:15px;font-weight:600;letter-spacing:-.01em;margin-bottom:3px}
+.sec-d{font-size:12px;color:var(--tm);margin-bottom:16px}
 
-.subject-block { margin-bottom: 1.25rem; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-.subject-header { padding: 10px 14px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
-.subject-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-.subject-name { font-size: 14px; font-weight: 500; color: var(--text); }
-.subject-gain { margin-left: auto; font-size: 12px; color: var(--text2); }
+/* DAILY TEMPLATES */
+.daily-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dlc{border:1px solid var(--b);border-radius:var(--r);overflow:hidden}
+.dlc-h{background:var(--bg2);border-bottom:1px solid var(--b);padding:9px 14px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--tm);display:flex;justify-content:space-between;align-items:center}
+.dlc-badge{font-size:9px;font-weight:700;padding:1px 6px;border-radius:3px;background:var(--t);color:var(--bg)}
+.dlc-b{padding:4px 0}
+.dl-row{display:grid;grid-template-columns:64px 1fr;padding:3px 14px;gap:0;align-items:flex-start}
+.dl-t{font-size:10px;font-weight:500;color:var(--tf);padding-top:4px;font-variant-numeric:tabular-nums}
+.dl-info{padding:2px 0 7px}
+.dl-n{font-size:12px;font-weight:500}
+.dl-s{font-size:11px;color:var(--tm)}
+.dl-dur{font-size:10px;background:var(--bg2);border:1px solid var(--b);padding:0 5px;border-radius:3px;display:inline-block;margin-top:3px;color:var(--tf);font-weight:500}
+.accent-blue{color:var(--blue-t)}
+.accent-green{color:var(--green-t)}
+.accent-amber{color:var(--amber-t)}
+.accent-purple{color:var(--purple-t)}
 
-.topic-row { display: flex; align-items: center; gap: 10px; padding: 9px 14px; border-bottom: 1px solid var(--border2); cursor: pointer; transition: background .12s; user-select: none; }
-.topic-row:last-child { border-bottom: none; }
-.topic-row:hover { background: var(--bg2); }
-.topic-row.done { background: var(--done-bg); }
-.topic-row.done .topic-name { color: var(--done-text); text-decoration: line-through; text-decoration-color: var(--done-text); opacity: 0.75; }
-.topic-row.done .topic-net { color: var(--done-text); opacity: 0.75; }
+/* SLEEP */
+.sleep-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.slc{border:1px solid var(--b);border-radius:var(--r);padding:11px;text-align:center}
+.slc-v{font-size:17px;font-weight:600;letter-spacing:-.02em}
+.slc-l{font-size:11px;color:var(--tm);margin-top:2px}
 
-.check { width: 18px; height: 18px; border-radius: 4px; border: 1.5px solid var(--check-border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all .15s; }
-.topic-row.done .check { background: var(--progress-fill); border-color: var(--progress-fill); }
-.check-icon { display: none; }
-.topic-row.done .check-icon { display: block; }
+/* PHASES */
+.ph-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:28px}
+.ph{border:1px solid var(--b);border-radius:var(--r);padding:14px 16px;position:relative;overflow:hidden}
+.ph::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
+.ph.f1::before{background:#3b82f6}
+.ph.f2::before{background:#f59e0b}
+.ph.f3::before{background:#ef4444}
+.ph-l{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--tf);margin-bottom:3px}
+.ph-h{font-size:13px;font-weight:600;margin-bottom:2px}
+.ph-w{font-size:11px;color:var(--tm);margin-bottom:6px}
+.ph-it{font-size:11px;color:var(--t);line-height:1.75}
 
-.diff-pill { padding: 2px 9px; border-radius: 99px; font-size: 11px; font-weight: 500; flex-shrink: 0; min-width: 44px; text-align: center; }
-.d-easy { background: #EAF3DE; color: #27500A; }
-.d-mid { background: #FAEEDA; color: #633806; }
-.d-hard { background: #FCEBEB; color: #791F1F; }
-[data-theme="dark"] .d-easy { background: #1a2e0f; color: #9FE1CB; }
-[data-theme="dark"] .d-mid { background: #2e1e06; color: #FAC775; }
-[data-theme="dark"] .d-hard { background: #2e0f0f; color: #F09595; }
+/* WEEK CARDS */
+.wk{border:1px solid var(--b);border-radius:var(--r);overflow:hidden;margin-bottom:8px;transition:border-color .15s}
+.wk:hover{border-color:var(--bs)}
+.wk-h{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--bg2);cursor:pointer;user-select:none;gap:10px;border-bottom:1px solid transparent;transition:border-color .15s}
+.wk.open .wk-h{border-bottom-color:var(--b)}
+.wk-hl{display:flex;align-items:flex-start;gap:10px}
+.wk-num{font-size:10px;font-weight:700;padding:3px 9px;border-radius:4px;color:#fff;flex-shrink:0;margin-top:2px}
+.f1{background:#3b82f6}
+.f2{background:#f59e0b}
+.f3{background:#ef4444}
+.wk-txt{}
+.wk-title{font-size:13px;font-weight:600}
+.wk-theme{font-size:11px;color:var(--tm)}
+.wk-hr{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.wk-hrs{font-size:11px;font-weight:500;color:var(--tm)}
+.wk-net{font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px}
+.net-g{background:var(--green);color:var(--green-t)}
+.net-b{background:var(--blue);color:var(--blue-t)}
+.chev{font-size:10px;color:var(--tf);transition:transform .2s}
+.wk.open .chev{transform:rotate(180deg)}
+.wk-body{display:none}
+.wk.open .wk-body{display:block}
 
-.topic-name { font-size: 13px; flex: 1; color: var(--text); }
-.topic-net { font-size: 13px; font-weight: 500; color: var(--text2); white-space: nowrap; }
+/* DAY GRID */
+.day-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-top:1px solid var(--b)}
+.dc{border-right:1px solid var(--b);padding:10px 11px;min-height:180px}
+.dc:last-child{border-right:none}
+.dc-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--tf);margin-bottom:7px}
+.dc-lbl.mat{color:var(--green-t)}
+.dc-lbl.fen{color:var(--purple-t)}
+.dc-lbl.den{color:var(--teal-t)}
+.db{margin-bottom:7px}
+.db-t{font-size:9px;color:var(--tf);margin-bottom:1px;font-variant-numeric:tabular-nums}
+.db-n{font-size:10px;font-weight:500;color:var(--t);margin-bottom:2px;line-height:1.35}
+.db-tags{display:flex;flex-wrap:wrap;gap:2px;margin-bottom:2px}
+.tag{font-size:9px;font-weight:500;padding:1px 5px;border-radius:20px}
+.tb{background:var(--blue);color:var(--blue-t)}
+.tg{background:var(--green);color:var(--green-t)}
+.ta{background:var(--amber);color:var(--amber-t)}
+.tp{background:var(--pink);color:var(--pink-t)}
+.tpu{background:var(--purple);color:var(--purple-t)}
+.tz{background:var(--zinc);color:var(--zinc-t)}
+.tt{background:var(--teal);color:var(--teal-t)}
+.ts{background:var(--sky);color:var(--sky-t)}
+.tr{background:var(--red);color:var(--red-t)}
+.to{background:var(--orange);color:var(--orange-t)}
+.db-dur{font-size:9px;color:var(--tf);font-weight:600}
+.db.highlight .db-n{color:var(--amber-t)}
+.db.mat-main .db-n{color:var(--green-t)}
 
-.days-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-bottom: 1.5rem; }
-.day-card { background: var(--bg2); border-radius: 8px; padding: 8px 6px; text-align: center; }
-.day-label { font-size: 11px; color: var(--text3); margin-bottom: 4px; }
-.day-focus { font-size: 11px; font-weight: 500; line-height: 1.3; color: var(--text); }
-.day-sub { font-size: 10px; color: var(--text3); margin-top: 2px; }
+/* TICK SYSTEM */
+.db{position:relative;cursor:pointer;border-radius:5px;padding:3px 4px 3px 4px;margin-bottom:4px;transition:background .12s}
+.db:hover{background:var(--bg2)}
+.db.done{opacity:.45}
+.db.done .db-n{text-decoration:line-through;color:var(--tf)}
+.db.done .db-dur{text-decoration:line-through}
+.tick-btn{position:absolute;top:3px;right:3px;width:16px;height:16px;border-radius:50%;border:1.5px solid var(--bs);background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:9px;flex-shrink:0;transition:all .15s;z-index:2;line-height:1}
+.tick-btn:hover{border-color:var(--green-t);background:var(--green)}
+.db.done .tick-btn{background:var(--green-t);border-color:var(--green-t);color:#fff}
+.db.done .tick-btn::after{content:'✓'}
+.db:not(.done) .tick-btn::after{content:''}
 
-.summary-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-bottom: 1.5rem; }
-.sum-card { background: var(--bg2); border-radius: 8px; padding: 10px; }
-.sum-label { font-size: 11px; color: var(--text2); margin-bottom: 3px; }
-.sum-val { font-size: 18px; font-weight: 500; color: var(--text); }
-.sum-sub { font-size: 11px; color: var(--text3); margin-top: 2px; }
+/* WEEK PROGRESS */
+.wk-prog{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.prog-text{font-size:10px;color:var(--tf);white-space:nowrap}
+.prog-bar{width:50px;height:4px;background:var(--b);border-radius:2px;overflow:hidden;flex-shrink:0}
+.prog-fill{height:100%;background:var(--green-t);border-radius:2px;transition:width .3s}
+.prog-100 .prog-fill{background:var(--teal-t)}
 
-.rule-box { background: var(--bg2); border-radius: 8px; padding: 12px 14px; margin-bottom: 1.5rem; }
-.rule-row { display: flex; gap: 10px; padding: 5px 0; font-size: 13px; color: var(--text2); border-bottom: 1px solid var(--border); align-items: flex-start; }
-.rule-row:last-child { border-bottom: none; }
-.rule-num { width: 20px; height: 20px; border-radius: 50%; background: var(--rule-num-bg); color: var(--rule-num-color); font-size: 11px; font-weight: 500; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+/* RESET BTN */
+.wk-reset{font-size:9px;color:var(--tf);cursor:pointer;padding:2px 6px;border-radius:3px;border:1px solid var(--b);background:transparent;transition:all .15s;flex-shrink:0}
+.wk-reset:hover{border-color:var(--red-t);color:var(--red-t);background:var(--red)}
 
-.reset-btn { margin-top: 1rem; padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border); font-size: 12px; color: var(--text3); background: transparent; cursor: pointer; transition: all .15s; }
-.reset-btn:hover { background: var(--bg2); color: var(--text2); }
+/* WEEK FOOTER */
+.wk-ft{padding:10px 16px;background:var(--bg2);border-top:1px solid var(--b);display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap}
+.wk-ft-note{font-size:11px;color:var(--tm);line-height:1.7}
+.wk-ft-note strong{color:var(--t);font-weight:500}
+.wk-ft-warn{font-size:11px;font-weight:600;color:var(--red-t);background:var(--red);padding:2px 8px;border-radius:4px;white-space:nowrap;flex-shrink:0;align-self:flex-start;margin-top:1px}
+
+/* NET SECTION */
+.net-g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:12px}
+.nc{background:var(--card);border:1px solid var(--b);border-radius:var(--r);padding:13px 15px}
+.nc-l{font-size:9px;color:var(--tf);text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px}
+.nc-v{font-size:19px;font-weight:600;letter-spacing:-.02em}
+.nc-s{font-size:11px;color:var(--tm);margin-top:1px}
+.note-box{background:var(--bg2);border:1px solid var(--b);border-radius:var(--r);padding:14px 17px;font-size:12px;color:var(--tm);line-height:1.9}
+.note-box strong{color:var(--t);font-weight:500}
+
+/* SCENARIO TABLE */
+.sc-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:12px}
+.sc-table th{padding:8px 12px;text-align:left;background:var(--bg2);border-bottom:1px solid var(--b);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--tm)}
+.sc-table td{padding:9px 12px;border-bottom:1px solid var(--b)}
+.sc-table tr:last-child td{border-bottom:none}
+.tbl-wrap{border:1px solid var(--b);border-radius:var(--r);overflow:hidden;margin-top:16px}
+.prob{font-size:11px;font-weight:600;padding:2px 7px;border-radius:4px}
+
+.footer{padding:24px 0;text-align:center;font-size:12px;color:var(--tf)}
+
+@media(max-width:760px){
+  .stats{grid-template-columns:repeat(3,1fr)}
+  .daily-grid{grid-template-columns:1fr}
+  .ph-row{grid-template-columns:1fr}
+  .day-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .dc:nth-child(3){border-right:none}
+  .dc:nth-child(n+4){border-top:1px solid var(--b)}
+  .net-g4{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:480px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .day-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
 </style>
 </head>
 <body>
 
-<div class="topbar">
-  <div class="page-title">TYT — 1 Aylık Çalışma Planı</div>
-  <div class="topbar-right">
-    <span class="progress-label" id="prog-label">0 / 25 konu</span>
-    <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
-    <button class="theme-btn" onclick="toggleTheme()" id="theme-btn">Karanlık mod</button>
+<header class="hdr">
+  <div class="w hdr-in">
+    <div class="logo">
+      <div class="pills">
+        <span class="pill p-tyt">TYT</span>
+        <span class="pill p-ayt">AYT</span>
+      </div>
+      10 Haftalık Tam Plan
+    </div>
+    <button class="tbtn" id="themeBtn">🌙</button>
   </div>
-</div>
+</header>
 
-<div class="week-tabs">
-  <button class="tab active" onclick="show(0)">Hafta 1</button>
-  <button class="tab" onclick="show(1)">Hafta 2</button>
-  <button class="tab" onclick="show(2)">Hafta 3</button>
-  <button class="tab" onclick="show(3)">Hafta 4</button>
-  <button class="tab" onclick="show(4)">Genel Bakış</button>
-</div>
+<div class="w">
 
-<div class="week-body visible" id="w0">
-  <div class="week-header">
-    <div><div class="week-title">Hafta 1 — Temel kazanım haftası</div><div class="week-sub">Kolay konulardan hızlı net topla, motivasyonu koru</div></div>
-    <div class="net-badge">+5 / +8 net</div>
+<section class="hero">
+  <div class="ey">YKS 2026 · Sayısal · Optimize Edilmiş Versiyon</div>
+  <h1 class="h1">TYT + AYT<br>10 Haftalık Optimize Plan</h1>
+  <p class="sub">Günde <strong>7 saat</strong> aktif çalışma. AYT Matematik günde 2.5 sa → haftada 10.5 sa. İnsan Fizyolojisi 8 haftaya yayıldı. Cuma günleri hafta 1–5 arası kesinlikle tekrar — yeni konu yok. Soru pratiği 50→80–100 sorua çıkarıldı.</p>
+  <div class="stats">
+    <div class="sc"><div class="sc-l">Günlük Süre</div><div class="sc-v">7 sa</div><div class="sc-s">aktif</div></div>
+    <div class="sc"><div class="sc-l">Haftalık Saat</div><div class="sc-v">~42 sa</div><div class="sc-s">haftada 6 gün</div></div>
+    <div class="sc"><div class="sc-l">AYT Mat/Hafta</div><div class="sc-v">10.5 sa</div><div class="sc-s">önceki: 4.5 sa</div></div>
+    <div class="sc"><div class="sc-l">TYT Hedef</div><div class="sc-v">62–70</div><div class="sc-s">mevcut: 40–50</div></div>
+    <div class="sc"><div class="sc-l">AYT Mat Hedef</div><div class="sc-v">14–16</div><div class="sc-s">mevcut: 3–4</div></div>
+    <div class="sc"><div class="sc-l">AYT Fen Hedef</div><div class="sc-v">15–18</div><div class="sc-s">mevcut: 2–3</div></div>
   </div>
-  <div class="days-row">
-    <div class="day-card"><div class="day-label">Pzt</div><div class="day-focus">Dil Bilgisi</div><div class="day-sub">Sözcük türleri</div></div>
-    <div class="day-card"><div class="day-label">Sal</div><div class="day-focus">Matematik</div><div class="day-sub">Temel işlemler</div></div>
-    <div class="day-card"><div class="day-label">Çar</div><div class="day-focus">Fen</div><div class="day-sub">Biyoloji temeli</div></div>
-    <div class="day-card"><div class="day-label">Per</div><div class="day-focus">Dil Bilgisi</div><div class="day-sub">Cümle ögeleri</div></div>
-    <div class="day-card"><div class="day-label">Cum</div><div class="day-focus">Matematik</div><div class="day-sub">Sayılar + EBOB</div></div>
-    <div class="day-card"><div class="day-label">Cmt</div><div class="day-focus">Fen</div><div class="day-sub">Biyoloji bitir</div></div>
-    <div class="day-card"><div class="day-label">Paz</div><div class="day-focus">Deneme</div><div class="day-sub">Analiz + tekrar</div></div>
-  </div>
-  <div class="subject-block">
-    <div class="subject-header"><div class="subject-dot" style="background:#3B6D11"></div><div class="subject-name">Dil bilgisi</div><div class="subject-gain">+2 / +3 net hedef</div></div>
-    <div class="topic-row" data-id="t1" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">Sözcük türleri (isim, sıfat, zamir, zarf)</span><span class="topic-net">+1.0–1.5 net</span></div>
-    <div class="topic-row" data-id="t2" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">Cümle ögeleri (özne, yüklem, nesne)</span><span class="topic-net">+1.0–1.5 net</span></div>
-  </div>
-  <div class="subject-block">
-    <div class="subject-header"><div class="subject-dot" style="background:#185FA5"></div><div class="subject-name">Matematik</div><div class="subject-gain">+2 / +3 net hedef</div></div>
-    <div class="topic-row" data-id="t3" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">Sayı kümeleri ve temel işlemler</span><span class="topic-net">+1.0–1.5 net</span></div>
-    <div class="topic-row" data-id="t4" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">EBOB–EKOK ve bölünebilme kuralları</span><span class="topic-net">+1.0–1.5 net</span></div>
-  </div>
-  <div class="subject-block">
-    <div class="subject-header"><div class="subject-dot" style="background:#993C1D"></div><div class="subject-name">Fen bilimleri</div><div class="subject-gain">+1 / +2 net hedef</div></div>
-    <div class="topic-row" data-id="t5" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">Hücre ve organeller (ezber ağırlıklı)</span><span class="topic-net">+0.5–1.0 net</span></div>
-    <div class="topic-row" data-id="t6" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">Canlıların sınıflandırılması</span><span class="topic-net">+0.5–1.0 net</span></div>
-  </div>
-</div>
+</section>
 
-<div class="week-body" id="w1">
-  <div class="week-header">
-    <div><div class="week-title">Hafta 2 — İvme haftası</div><div class="week-sub">Orta zorluk konulara geç, hız kazan</div></div>
-    <div class="net-badge">+5 / +7 net</div>
+<!-- GÜNLÜK PROGRAM -->
+<section class="sec">
+  <div class="sec-h">Günlük Program</div>
+  <div class="sec-d">3 farklı gün tipi — Mat Günü / Fen Günü / Deneme Günü</div>
+  <div class="sleep-row">
+    <div class="slc"><div class="slc-v">07:00</div><div class="slc-l">Uyanış</div></div>
+    <div class="slc"><div class="slc-v">23:00</div><div class="slc-l">Uyku</div></div>
+    <div class="slc"><div class="slc-v">8 sa</div><div class="slc-l">Uyku Süresi</div></div>
   </div>
-  <div class="days-row">
-    <div class="day-card"><div class="day-label">Pzt</div><div class="day-focus">Dil Bilgisi</div><div class="day-sub">Fiiller + ekler</div></div>
-    <div class="day-card"><div class="day-label">Sal</div><div class="day-focus">Matematik</div><div class="day-sub">Kesirler + yüzde</div></div>
-    <div class="day-card"><div class="day-label">Çar</div><div class="day-focus">Fen</div><div class="day-sub">Kimya temeli</div></div>
-    <div class="day-card"><div class="day-label">Per</div><div class="day-focus">Dil Bilgisi</div><div class="day-sub">Anlam bilgisi</div></div>
-    <div class="day-card"><div class="day-label">Cum</div><div class="day-focus">Matematik</div><div class="day-sub">Oran–orantı</div></div>
-    <div class="day-card"><div class="day-label">Cmt</div><div class="day-focus">Fen</div><div class="day-sub">Fizik temeli</div></div>
-    <div class="day-card"><div class="day-label">Paz</div><div class="day-focus">Deneme</div><div class="day-sub">Analiz + tekrar</div></div>
+  <div class="daily-grid">
+    <div class="dlc">
+      <div class="dlc-h">Pazartesi · Çarşamba · Cuma <span class="dlc-badge">MAT GÜNÜ — 7 SA</span></div>
+      <div class="dlc-b">
+        <div class="dl-row"><div class="dl-t">08:00</div><div class="dl-info"><div class="dl-n accent-blue">▶ Paragraf + Problem (SABİT)</div><div class="dl-s">Para ×15 soru · Prob ×20 soru · Her gün değişmez</div><span class="dl-dur">2 sa</span></div></div>
+        <div class="dl-row"><div class="dl-t">10:15</div><div class="dl-info"><div class="dl-n accent-green">▶ TYT Blok</div><div class="dl-s">Hafta 1–4: konu. Hafta 5–10: karma soru / hata defteri</div><span class="dl-dur">1.5 sa</span></div></div>
+        <div class="dl-row"><div class="dl-t">13:00</div><div class="dl-info"><div class="dl-n accent-amber">▶ AYT Matematik — ANA BLOK</div><div class="dl-s">Konu anlatımı + 80–100 soru. Bu blok asla kısaltılmaz.</div><span class="dl-dur" style="background:var(--amber);color:var(--amber-t);border-color:var(--amber-t)">2.5 sa ⬆</span></div></div>
+        <div class="dl-row"><div class="dl-t">15:45</div><div class="dl-info"><div class="dl-n">Tekrar & Yanlış Analizi</div><div class="dl-s">Günün yanlışları hata defterine · Zayıf konudan 15–20 soru</div><span class="dl-dur">1 sa</span></div></div>
+        <div class="dl-row"><div class="dl-t">16:45</div><div class="dl-info"><div class="dl-n">Serbest Zaman</div><div class="dl-s">Dinlen — beyin sıfırlansın</div></div></div>
+        <div class="dl-row"><div class="dl-t">23:00</div><div class="dl-info"><div class="dl-n">Uyku</div></div></div>
+      </div>
+    </div>
+    <div class="dlc">
+      <div class="dlc-h">Salı · Perşembe <span class="dlc-badge" style="background:var(--purple-t)">FEN GÜNÜ — 7 SA</span></div>
+      <div class="dlc-b">
+        <div class="dl-row"><div class="dl-t">08:00</div><div class="dl-info"><div class="dl-n accent-blue">▶ Paragraf + Problem (SABİT)</div><div class="dl-s">Para ×15 soru · Prob ×20 soru · Her gün değişmez</div><span class="dl-dur">2 sa</span></div></div>
+        <div class="dl-row"><div class="dl-t">10:15</div><div class="dl-info"><div class="dl-n accent-green">▶ TYT Blok</div><div class="dl-s">Hafta 1–4: konu. Hafta 5–10: karma soru</div><span class="dl-dur">1.5 sa</span></div></div>
+        <div class="dl-row"><div class="dl-t">13:00</div><div class="dl-info"><div class="dl-n accent-purple">▶ AYT Fen Konusu</div><div class="dl-s">Biyoloji (Salı) veya Kimya/Fizik (Perşembe) · 50 soru</div><span class="dl-dur">1.5 sa</span></div></div>
+        <div class="dl-row"><div class="dl-t">14:45</div><div class="dl-info"><div class="dl-n accent-amber">▶ AYT Mat Tekrar Sorusu</div><div class="dl-s">O haftanın mat konusundan 50–60 soru · Pekiştirme</div><span class="dl-dur">1.5 sa</span></div></div>
+        <div class="dl-row"><div class="dl-t">16:15</div><div class="dl-info"><div class="dl-n">Tekrar & Yanlış</div><div class="dl-s">Günün yanlışları hata defterine</div><span class="dl-dur">45 dk</span></div></div>
+        <div class="dl-row"><div class="dl-t">17:00</div><div class="dl-info"><div class="dl-n">Serbest Zaman</div></div></div>
+        <div class="dl-row"><div class="dl-t">23:00</div><div class="dl-info"><div class="dl-n">Uyku</div></div></div>
+      </div>
+    </div>
+    <div class="dlc">
+      <div class="dlc-h">Cumartesi <span class="dlc-badge" style="background:var(--teal-t)">DENEME GÜNÜ — 7 SA</span></div>
+      <div class="dlc-b">
+        <div class="dl-row"><div class="dl-t">07:00</div><div class="dl-info"><div class="dl-n">Uyanış & Hafif Hazırlık</div><div class="dl-s">Ağır kahvaltı etme. Zihin açık kalsın.</div><span class="dl-dur">60 dk</span></div></div>
+        <div class="dl-row"><div class="dl-t">08:00</div><div class="dl-info"><div class="dl-n accent-blue">▶ Isınma Para + Prob</div><div class="dl-s">10 para + 10 prob — sadece ısın, yorma</div><span class="dl-dur">45 dk</span></div></div>
+        <div class="dl-row"><div class="dl-t">09:00</div><div class="dl-info"><div class="dl-n accent-teal" style="color:var(--teal-t)">▶ TYT Denemesi — 120 Soru</div><div class="dl-s">Gerçek koşullar. Telefon kapalı. Saat açık. 165 dk.</div><span class="dl-dur">2 sa 45 dk</span></div></div>
+        <div class="dl-row"><div class="dl-t">11:45</div><div class="dl-info"><div class="dl-n">Öğle Yemeği</div><div class="dl-s">Tam dinlen — denemeden uzaklaş</div><span class="dl-dur">60 dk</span></div></div>
+        <div class="dl-row"><div class="dl-t">12:45</div><div class="dl-info"><div class="dl-n accent-amber">▶ AYT Branş Soru</div><div class="dl-s">O haftanın AYT Mat veya Fen konusundan 60–80 soru</div><span class="dl-dur">1.5 sa</span></div></div>
+        <div class="dl-row"><div class="dl-t">14:15</div><div class="dl-info"><div class="dl-n">Deneme Analizi</div><div class="dl-s">Yanlışları konusuna göre kategorile. Net hesapla. 2. haftaya not al.</div><span class="dl-dur">1.5 sa</span></div></div>
+        <div class="dl-row"><div class="dl-t">15:45</div><div class="dl-info"><div class="dl-n">Tamamen Serbest</div><div class="dl-s">Hak ettin. Dinlen.</div></div></div>
+      </div>
+    </div>
+    <div class="dlc">
+      <div class="dlc-h">Pazar <span class="dlc-badge" style="background:var(--zinc-t)">DİNLENME</span></div>
+      <div class="dlc-b">
+        <div class="dl-row"><div class="dl-t">—</div><div class="dl-info"><div class="dl-n">Tam Dinlenme</div><div class="dl-s">Çalışma yok. Gerekirse eksik kalan en fazla 1 saatlik iş tamamlanabilir. Ertesi haftanın planını 10 dk gözden geçir, o kadar.</div><span class="dl-dur">serbest</span></div></div>
+      </div>
+    </div>
   </div>
-  <div class="subject-block">
-    <div class="subject-header"><div class="subject-dot" style="background:#3B6D11"></div><div class="subject-name">Dil bilgisi</div><div class="subject-gain">+2 / +3 net hedef</div></div>
-    <div class="topic-row" data-id="t7" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">Fiil çekimleri ve zaman ekleri</span><span class="topic-net">+1.0–1.5 net</span></div>
-    <div class="topic-row" data-id="t8" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Anlam bilgisi (mecaz, deyim, atasözü)</span><span class="topic-net">+1.0–1.5 net</span></div>
-  </div>
-  <div class="subject-block">
-    <div class="subject-header"><div class="subject-dot" style="background:#185FA5"></div><div class="subject-name">Matematik</div><div class="subject-gain">+2 / +2.5 net hedef</div></div>
-    <div class="topic-row" data-id="t9" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">Kesirler, yüzdeler, ondalıklar</span><span class="topic-net">+1.0–1.5 net</span></div>
-    <div class="topic-row" data-id="t10" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Oran–orantı ve denklem çözme</span><span class="topic-net">+1.0–1.0 net</span></div>
-  </div>
-  <div class="subject-block">
-    <div class="subject-header"><div class="subject-dot" style="background:#993C1D"></div><div class="subject-name">Fen bilimleri</div><div class="subject-gain">+1 / +1.5 net hedef</div></div>
-    <div class="topic-row" data-id="t11" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Madde ve özellikleri (kimya)</span><span class="topic-net">+0.5–1.0 net</span></div>
-    <div class="topic-row" data-id="t12" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">Kuvvet ve hareket temeli (fizik)</span><span class="topic-net">+0.5–0.5 net</span></div>
-  </div>
-</div>
+</section>
 
-<div class="week-body" id="w2">
-  <div class="week-header">
-    <div><div class="week-title">Hafta 3 — Derinleşme haftası</div><div class="week-sub">Puan artışının en büyük olduğu hafta, odak en üst seviyede olmalı</div></div>
-    <div class="net-badge">+5 / +6 net</div>
+<!-- FAZLAR -->
+<section class="sec">
+  <div class="sec-h">3 Faz Genel Bakış</div>
+  <div class="sec-d">Her fazın net hedefi ve odak noktası — 10 hafta boyunca yol haritası</div>
+  <div class="ph-row">
+    <div class="ph f1">
+      <div class="ph-l">Faz 1 · Hafta 1–3</div>
+      <div class="ph-h">Konu İnşası</div>
+      <div class="ph-w">~126 saat çalışma</div>
+      <div class="ph-it">TYT tüm konuları bitirilir. AYT Mat'ta Logaritma, Diziler, 2. Derece, Parabol, Limit girilir. AYT Bio'da İnsan Fizyolojisi'nin 6 sistemi işlenir. Hata defteri aktif tutulur. Cuma: kesinlikle tekrar günü.</div>
+    </div>
+    <div class="ph f2">
+      <div class="ph-l">Faz 2 · Hafta 4–7</div>
+      <div class="ph-h">Derinleşme & Soru Maratonu</div>
+      <div class="ph-w">~168 saat çalışma</div>
+      <div class="ph-it">TYT'de konu bitti — sadece karma soru + haftada 1 deneme. AYT Mat'ta Trigonometri tamamlanır, ardından tüm konular karma soru maratonu (80–100/gün). AYT Kim ve Fiz bu fazda biter. Soru temposu oturur.</div>
+    </div>
+    <div class="ph f3">
+      <div class="ph-l">Faz 3 · Hafta 8–10</div>
+      <div class="ph-h">Deneme Yoğunlaşması</div>
+      <div class="ph-w">~126 saat çalışma</div>
+      <div class="ph-it">Artık yeni konu yok. Branş denemeleri, güçlü konuları kilitleme. Zayıf konuları atla — zamana değmez. Optik işaretleme ve süre yönetimi antrenmanı. 10. hafta Cumartesi tam YKS seti.</div>
+    </div>
   </div>
-  <div class="days-row">
-    <div class="day-card"><div class="day-label">Pzt</div><div class="day-focus">Matematik</div><div class="day-sub">1. derece denklem</div></div>
-    <div class="day-card"><div class="day-label">Sal</div><div class="day-focus">Dil Bilgisi</div><div class="day-sub">Yapı bilgisi</div></div>
-    <div class="day-card"><div class="day-label">Çar</div><div class="day-focus">Fen</div><div class="day-sub">Kimya işlemler</div></div>
-    <div class="day-card"><div class="day-label">Per</div><div class="day-focus">Matematik</div><div class="day-sub">Problemler</div></div>
-    <div class="day-card"><div class="day-label">Cum</div><div class="day-focus">Dil Bilgisi</div><div class="day-sub">Paragraf</div></div>
-    <div class="day-card"><div class="day-label">Cmt</div><div class="day-focus">Fen</div><div class="day-sub">Fizik problemler</div></div>
-    <div class="day-card"><div class="day-label">Paz</div><div class="day-focus">Deneme</div><div class="day-sub">Tam deneme</div></div>
-  </div>
-  <div class="subject-block">
-    <div class="subject-header"><div class="subject-dot" style="background:#3B6D11"></div><div class="subject-name">Dil bilgisi</div><div class="subject-gain">+1.5 / +2 net hedef</div></div>
-    <div class="topic-row" data-id="t13" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Yapım ekleri ve sözcük yapısı</span><span class="topic-net">+0.5–1.0 net</span></div>
-    <div class="topic-row" data-id="t14" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Paragraf — ana fikir, başlık bulma</span><span class="topic-net">+1.0–1.0 net</span></div>
-  </div>
-  <div class="subject-block">
-    <div class="subject-header"><div class="subject-dot" style="background:#185FA5"></div><div class="subject-name">Matematik</div><div class="subject-gain">+2 / +2.5 net hedef</div></div>
-    <div class="topic-row" data-id="t15" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">1. dereceden denklemler ve eşitsizlikler</span><span class="topic-net">+1.0–1.5 net</span></div>
-    <div class="topic-row" data-id="t16" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Temel problem çözme (yaş, hız, karışım)</span><span class="topic-net">+1.0–1.0 net</span></div>
-  </div>
-  <div class="subject-block">
-    <div class="subject-header"><div class="subject-dot" style="background:#993C1D"></div><div class="subject-name">Fen bilimleri</div><div class="subject-gain">+1.5 / +1.5 net hedef</div></div>
-    <div class="topic-row" data-id="t17" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Mol hesapları ve kimyasal tepkimeler</span><span class="topic-net">+0.5–1.0 net</span></div>
-    <div class="topic-row" data-id="t18" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Basınç, kaldırma kuvveti (fizik)</span><span class="topic-net">+0.5–0.5 net</span></div>
-  </div>
-</div>
 
-<div class="week-body" id="w3">
-  <div class="week-header">
-    <div><div class="week-title">Hafta 4 — Pekiştirme ve deneme haftası</div><div class="week-sub">Zor konular + eksikleri kapat + hız çalışması</div></div>
-    <div class="net-badge">+4 / +6 net</div>
-  </div>
-  <div class="days-row">
-    <div class="day-card"><div class="day-label">Pzt</div><div class="day-focus">Matematik</div><div class="day-sub">Fonksiyon temeli</div></div>
-    <div class="day-card"><div class="day-label">Sal</div><div class="day-focus">Dil Bilgisi</div><div class="day-sub">Yazım + noktalama</div></div>
-    <div class="day-card"><div class="day-label">Çar</div><div class="day-focus">Fen</div><div class="day-sub">Zor konular</div></div>
-    <div class="day-card"><div class="day-label">Per</div><div class="day-focus">Tüm dersler</div><div class="day-sub">Eksik tarama</div></div>
-    <div class="day-card"><div class="day-label">Cum</div><div class="day-focus">Matematik</div><div class="day-sub">Geometri temeli</div></div>
-    <div class="day-card"><div class="day-label">Cmt</div><div class="day-focus">Deneme</div><div class="day-sub">Tam deneme</div></div>
-    <div class="day-card"><div class="day-label">Paz</div><div class="day-focus">Analiz</div><div class="day-sub">Son tekrar</div></div>
-  </div>
-  <div class="subject-block">
-    <div class="subject-header"><div class="subject-dot" style="background:#3B6D11"></div><div class="subject-name">Dil bilgisi</div><div class="subject-gain">+1 / +1.5 net hedef</div></div>
-    <div class="topic-row" data-id="t19" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-hard">Zor</span><span class="topic-name">Yazım kuralları ve noktalama işaretleri</span><span class="topic-net">+0.5–1.0 net</span></div>
-    <div class="topic-row" data-id="t20" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-hard">Zor</span><span class="topic-name">Anlam ilişkileri ve sözcük türetme</span><span class="topic-net">+0.5–0.5 net</span></div>
-  </div>
-  <div class="subject-block">
-    <div class="subject-header"><div class="subject-dot" style="background:#185FA5"></div><div class="subject-name">Matematik</div><div class="subject-gain">+2 / +3 net hedef</div></div>
-    <div class="topic-row" data-id="t21" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-hard">Zor</span><span class="topic-name">Fonksiyon ve grafik yorumlama</span><span class="topic-net">+0.5–1.0 net</span></div>
-    <div class="topic-row" data-id="t22" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Temel geometri (üçgen, çember alanlar)</span><span class="topic-net">+1.0–1.5 net</span></div>
-    <div class="topic-row" data-id="t23" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-hard">Zor</span><span class="topic-name">Sayma ve olasılık temeli</span><span class="topic-net">+0.5–0.5 net</span></div>
-  </div>
-  <div class="subject-block">
-    <div class="subject-header"><div class="subject-dot" style="background:#993C1D"></div><div class="subject-name">Fen bilimleri</div><div class="subject-gain">+1 / +1.5 net hedef</div></div>
-    <div class="topic-row" data-id="t24" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-hard">Zor</span><span class="topic-name">Elektrik devreleri ve hesaplar</span><span class="topic-net">+0.5–1.0 net</span></div>
-    <div class="topic-row" data-id="t25" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-hard">Zor</span><span class="topic-name">Genetik ve DNA (biyoloji)</span><span class="topic-net">+0.5–0.5 net</span></div>
-  </div>
-</div>
+  <div id="wk-container"></div>
+</section>
 
-<div class="week-body" id="w4">
-  <div class="summary-grid">
-    <div class="sum-card"><div class="sum-label">Toplam min artış</div><div class="sum-val">+19</div><div class="sum-sub">net hedef</div></div>
-    <div class="sum-card"><div class="sum-label">Toplam max artış</div><div class="sum-val">+27</div><div class="sum-sub">net hedef</div></div>
-    <div class="sum-card"><div class="sum-label">Hedef net</div><div class="sum-val">55–70</div><div class="sum-sub">ay sonu</div></div>
-    <div class="sum-card"><div class="sum-label">Tamamlanan</div><div class="sum-val" id="done-count">0 / 25</div><div class="sum-sub">konu</div></div>
+<!-- NET TAHMİNİ -->
+<section class="sec">
+  <div class="sec-h">Net Tahmini</div>
+  <div class="sec-d">10. hafta sonu beklenen net aralıkları</div>
+  <div class="net-g4">
+    <div class="nc"><div class="nc-l">TYT</div><div class="nc-v">62–70</div><div class="nc-s">mevcut 40–50'den</div></div>
+    <div class="nc"><div class="nc-l">AYT Matematik</div><div class="nc-v">13–16</div><div class="nc-s">mevcut 3–4'ten</div></div>
+    <div class="nc"><div class="nc-l">AYT Fen</div><div class="nc-v">14–18</div><div class="nc-s">mevcut 2–3'ten</div></div>
+    <div class="nc"><div class="nc-l">AYT Toplam</div><div class="nc-v">27–34</div><div class="nc-s">→ 150–300 bin</div></div>
   </div>
-  <div class="subject-block">
-    <div class="subject-header"><div class="subject-dot" style="background:#3B6D11"></div><div class="subject-name">Dil bilgisi — 4 hafta toplam</div><div class="subject-gain">+6.5 / +9.5 net</div></div>
-    <div class="topic-row" data-id="t1" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">Sözcük türleri</span><span class="topic-net">+1.0–1.5</span></div>
-    <div class="topic-row" data-id="t2" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">Cümle ögeleri</span><span class="topic-net">+1.0–1.5</span></div>
-    <div class="topic-row" data-id="t7" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">Fiil çekimleri</span><span class="topic-net">+1.0–1.5</span></div>
-    <div class="topic-row" data-id="t8" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Anlam bilgisi (deyim, mecaz)</span><span class="topic-net">+1.0–1.5</span></div>
-    <div class="topic-row" data-id="t13" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Yapı bilgisi ve paragraf</span><span class="topic-net">+1.0–1.5</span></div>
-    <div class="topic-row" data-id="t19" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-hard">Zor</span><span class="topic-name">Yazım + noktalama + anlam ilişkileri</span><span class="topic-net">+0.5–1.5</span></div>
-  </div>
-  <div class="subject-block">
-    <div class="subject-header"><div class="subject-dot" style="background:#185FA5"></div><div class="subject-name">Matematik — 4 hafta toplam</div><div class="subject-gain">+8 / +12 net</div></div>
-    <div class="topic-row" data-id="t3" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">Sayı kümeleri + EBOB-EKOK</span><span class="topic-net">+1.5–2.5</span></div>
-    <div class="topic-row" data-id="t9" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">Kesirler, yüzdeler, ondalıklar</span><span class="topic-net">+1.0–1.5</span></div>
-    <div class="topic-row" data-id="t10" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Oran–orantı + denklem</span><span class="topic-net">+1.5–2.0</span></div>
-    <div class="topic-row" data-id="t15" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Problemler (yaş, hız, karışım)</span><span class="topic-net">+1.5–2.0</span></div>
-    <div class="topic-row" data-id="t22" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Temel geometri</span><span class="topic-net">+1.0–1.5</span></div>
-    <div class="topic-row" data-id="t21" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-hard">Zor</span><span class="topic-name">Fonksiyon + sayma + olasılık</span><span class="topic-net">+0.5–1.5</span></div>
-  </div>
-  <div class="subject-block">
-    <div class="subject-header"><div class="subject-dot" style="background:#993C1D"></div><div class="subject-name">Fen bilimleri — 4 hafta toplam</div><div class="subject-gain">+4 / +6 net</div></div>
-    <div class="topic-row" data-id="t5" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-easy">Kolay</span><span class="topic-name">Hücre + canlılar (biyoloji)</span><span class="topic-net">+1.0–1.5</span></div>
-    <div class="topic-row" data-id="t11" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Madde + tepkimeler (kimya)</span><span class="topic-net">+1.0–1.5</span></div>
-    <div class="topic-row" data-id="t17" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-mid">Orta</span><span class="topic-name">Kuvvet + basınç (fizik)</span><span class="topic-net">+0.5–1.0</span></div>
-    <div class="topic-row" data-id="t24" onclick="toggle(this)"><span class="check"><svg class="check-icon" width="10" height="10" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="diff-pill d-hard">Zor</span><span class="topic-name">Elektrik + genetik</span><span class="topic-net">+0.5–1.0</span></div>
-  </div>
-  <div class="rule-box">
-    <div class="rule-row"><div class="rule-num">1</div><span>Her hafta pazar günü mutlaka tam deneme çöz, sonuçları analiz et — hangi konudan net kaybettiğini tespit et.</span></div>
-    <div class="rule-row"><div class="rule-num">2</div><span>Günlük minimum 30 soru hedefle. Konu çalışırken 20, deneme stiliyle 10 soru yeterli.</span></div>
-    <div class="rule-row"><div class="rule-num">3</div><span>Net artışı 2 hafta üst üste duraksarsa o konuyu bırak, geç — zaman en değerli kaynağındır.</span></div>
-    <div class="rule-row"><div class="rule-num">4</div><span>Fen bilimleri için biyoloji ve kimyanın ezber kısmına 30 dk, problem kısmına 30 dk ayır.</span></div>
-  </div>
-  <button class="reset-btn" onclick="resetAll()">Tüm işaretleri sıfırla</button>
+</section>
+
+<footer class="footer">YKS 2026 · Optimize Edilmiş TYT+AYT Sayısal Planı · 420 saatlik çalışma hedefi</footer>
 </div>
 
 <script>
-const TOTAL = 25;
-const LS_KEY = 'tyt_done';
-const LS_THEME = 'tyt_theme';
+const WKS=[
+{w:1,f:1,title:"TYT Mat Temeli + AYT Mat Başlangıcı",theme:"Kümeler·Mantık·P/K·Olasılık + Logaritma·Diziler başlangıcı",hrs:"~42 sa",net:"+5–7 net",
+ warn:"Cuma kesinlikle tekrar — yeni konu yok!",
+ note:"Bu hafta bilişsel yük kontrollü tutuldu: Mat günleri 1 TYT + 1 AYT Mat konusu. Fen günleri 1 Bio sistemi + Mat tekrar. Temeli sağlam kur.",
+ days:[
+  {l:"Pzt",type:"mat",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Kümeler + Mantık",tags:["Kümeler","Mantık"],c:"tg",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — Logaritma konu+soru",tags:["Logaritma","80 soru"],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Tekrar & Yanlış",tags:["Hata def."],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Sal",type:"fen",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Permütasyon/Komb.",tags:["P/K"],c:"tg",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Bio — Sindirim Sistemi",tags:["Sindirim"],c:"tpu",d:"1.5 sa"},
+   {t:"14:45",n:"AYT Mat — Log tekrar",tags:["Log 50 soru"],c:"ta",d:"1.5 sa"},
+   {t:"16:15",n:"Yanlış Analizi",tags:["Hata def."],c:"tz",d:"45 dk"},
+  ]},
+  {l:"Çar",type:"mat",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Olasılık",tags:["Olasılık"],c:"tg",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — Diziler konu+soru",tags:["Diziler","80 soru"],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Tekrar & Yanlış",tags:["Hata def."],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Per",type:"fen",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Mat karma",tags:["Karma soru"],c:"tz",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Bio — Dolaşım Sistemi",tags:["Dolaşım"],c:"tpu",d:"1.5 sa"},
+   {t:"14:45",n:"AYT Mat — Diziler tekrar",tags:["Diziler 50 soru"],c:"ta",d:"1.5 sa"},
+   {t:"16:15",n:"Yanlış Analizi",tags:["Hata def."],c:"tz",d:"45 dk"},
+  ]},
+  {l:"Cum",type:"tekrar",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — TEKRAR (hata defteri)",tags:["⚠ Yeni konu yok"],c:"tr",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — 2.Derece+Karmaşık konu+soru",tags:["2.Derece","Karmaşık","80 soru"],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Tekrar & Yanlış",tags:["Hata def."],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Cmt",type:"den",b:[
+   {t:"08:00",n:"Isınma Para+Prob",tags:["×10+×10"],c:"tb",d:"45 dk"},
+   {t:"09:00",n:"TYT Denemesi",tags:["120 soru","165 dk"],c:"tt",d:"2s45dk"},
+   {t:"12:45",n:"AYT Mat karma soru",tags:["Log+Diz 60 soru"],c:"ta",d:"1.5 sa"},
+   {t:"14:15",n:"Deneme Analizi",tags:["Net hesap"],c:"tz",d:"1.5 sa"},
+  ]},
+ ]},
 
-function loadDone() {
-  try { return JSON.parse(localStorage.getItem(LS_KEY)) || []; } catch { return []; }
-}
-function saveDone(arr) {
-  try { localStorage.setItem(LS_KEY, JSON.stringify(arr)); } catch {}
-}
+{w:2,f:1,title:"TYT Kimya + Fizik + AYT Mat Parabol",theme:"Kimya Bilimi·Madde·Karışımlar·Fizik + Parabol·Bio Sistemler devam",hrs:"~42 sa",net:"+5–7 net",
+ warn:"Cuma kesinlikle tekrar — yeni konu yok!",
+ note:"AYT Mat'ta Parabol başlıyor. Bio'da Solunum ve Boşaltım sistemleri. TYT Kimya tüm konuları bu haftada biter.",
+ days:[
+  {l:"Pzt",type:"mat",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Kimya Bilimi",tags:["Kimya Bilimi"],c:"tp",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — 2.Derece soru+karma",tags:["2.Derece","100 soru"],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Tekrar & Yanlış",tags:["Hata def."],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Sal",type:"fen",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Madde ve Halleri",tags:["Madde Halleri"],c:"tp",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Bio — Solunum+Boşaltım",tags:["Solunum","Boşaltım"],c:"tpu",d:"1.5 sa"},
+   {t:"14:45",n:"AYT Mat — Log+Diz tekrar",tags:["Karma 50 soru"],c:"ta",d:"1.5 sa"},
+   {t:"16:15",n:"Yanlış Analizi",tags:["Hata def."],c:"tz",d:"45 dk"},
+  ]},
+  {l:"Çar",type:"mat",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Karışımlar",tags:["Karışımlar"],c:"tp",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — Parabol konu+soru",tags:["Parabol","80 soru"],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Tekrar & Yanlış",tags:["Hata def."],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Per",type:"fen",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Fizik Madde+Isı",tags:["Madde","Isı&Sıcaklık"],c:"ta",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Bio — Sinir Sistemi",tags:["Sinir Sistemi"],c:"tpu",d:"1.5 sa"},
+   {t:"14:45",n:"AYT Mat — Parabol tekrar",tags:["Parabol 50 soru"],c:"ta",d:"1.5 sa"},
+   {t:"16:15",n:"Yanlış Analizi",tags:["Hata def."],c:"tz",d:"45 dk"},
+  ]},
+  {l:"Cum",type:"tekrar",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — TEKRAR (hata defteri)",tags:["⚠ Yeni konu yok"],c:"tr",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — Parabol+2.Derece karma",tags:["Karma","100 soru"],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Tekrar & Yanlış",tags:["Hata def."],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Cmt",type:"den",b:[
+   {t:"08:00",n:"Isınma Para+Prob",tags:["×10+×10"],c:"tb",d:"45 dk"},
+   {t:"09:00",n:"TYT Denemesi",tags:["120 soru","165 dk"],c:"tt",d:"2s45dk"},
+   {t:"12:45",n:"AYT Bio soru",tags:["Sistemler 50 soru"],c:"tpu",d:"1.5 sa"},
+   {t:"14:15",n:"Deneme Analizi",tags:["Net hesap"],c:"tz",d:"1.5 sa"},
+  ]},
+ ]},
 
-function toggle(row) {
-  const id = row.dataset.id;
-  let done = loadDone();
-  const idx = done.indexOf(id);
-  if (idx === -1) done.push(id); else done.splice(idx, 1);
-  saveDone(done);
-  applyState(done);
-}
+{w:3,f:1,title:"TYT Bio + Geom + AYT Mat Limit + AYT Bio",theme:"Bio Sınıf·Temel Bileşen·Ortak Özellik+Üçgenler + Limit·Fonksiyon başlangıcı",hrs:"~42 sa",net:"+4–6 net",
+ warn:"Cuma kesinlikle tekrar — yeni konu yok!",
+ note:"TYT Bio konuları biter. Geometri Açılar+Üçgenler girilir. AYT Mat'ta Limit işlenir. Bio'da Endokrin+Destek-Hareket+Üreme+Genden Proteine bu hafta.",
+ days:[
+  {l:"Pzt",type:"mat",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Bio Sınıflandırma",tags:["Sınıflandırma"],c:"tpu",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — Limit konu+soru",tags:["Limit","Süreklilik","80 soru"],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Tekrar & Yanlış",tags:["Hata def."],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Sal",type:"fen",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Temel Bileşenler",tags:["Temel Bileşen"],c:"tpu",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Bio — Endokrin+Destek-Hareket",tags:["Endokrin","Destek-Hareket"],c:"tpu",d:"1.5 sa"},
+   {t:"14:45",n:"AYT Mat — Limit tekrar",tags:["Limit 50 soru"],c:"ta",d:"1.5 sa"},
+   {t:"16:15",n:"Yanlış Analizi",tags:["Hata def."],c:"tz",d:"45 dk"},
+  ]},
+  {l:"Çar",type:"mat",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Ortak Özellikler",tags:["Ortak Özellik"],c:"tpu",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — Limit soru maratonu",tags:["Limit","100 soru"],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Tekrar & Yanlış",tags:["Hata def."],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Per",type:"fen",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Fizik Hareket",tags:["Hareket ve Kuvvet"],c:"ta",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Bio — Üreme+Genden Proteine",tags:["Üreme","Genden Proteine"],c:"tpu",d:"1.5 sa"},
+   {t:"14:45",n:"AYT Mat — Limit+Parabol karma",tags:["Karma 50 soru"],c:"ta",d:"1.5 sa"},
+   {t:"16:15",n:"Yanlış Analizi",tags:["Hata def."],c:"tz",d:"45 dk"},
+  ]},
+  {l:"Cum",type:"tekrar",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — TEKRAR (hata defteri)",tags:["⚠ Yeni konu yok"],c:"tr",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — Fonksiyon Uyg. konu+soru",tags:["Fonksiyon Uyg.","80 soru"],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Tekrar & Yanlış",tags:["Hata def."],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Cmt",type:"den",b:[
+   {t:"08:00",n:"Isınma Para+Prob",tags:["×10+×10"],c:"tb",d:"45 dk"},
+   {t:"09:00",n:"TYT Denemesi",tags:["120 soru","165 dk"],c:"tt",d:"2s45dk"},
+   {t:"12:45",n:"AYT Mat karma",tags:["Fon+Limit 60 soru"],c:"ta",d:"1.5 sa"},
+   {t:"14:15",n:"Deneme Analizi",tags:["Net hesap"],c:"tz",d:"1.5 sa"},
+  ]},
+ ]},
 
-function applyState(done) {
-  document.querySelectorAll('.topic-row[data-id]').forEach(row => {
-    row.classList.toggle('done', done.includes(row.dataset.id));
+{w:4,f:2,title:"TYT Geom+Sosyal + AYT Mat Trigonometri + AYT Kim Başlangıcı",theme:"Açılar·Üçgenler·Katı Cisimler·Tarih + Trig konu + Modern Atom",hrs:"~42 sa",net:"+4–6 net",
+ warn:"Cuma hâlâ tekrar günü — TYT yeni konu bitti sayılır, karma soru yap",
+ note:"TYT Geometri ve Sosyal bu haftadan itibaren hızlıca taranır (her biri max 1.5 sa). AYT Mat Trigonometri başlar. AYT Kim'de Modern Atom Teorisi.",
+ days:[
+  {l:"Pzt",type:"mat",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Geom. Açılar+Üçgenler",tags:["Açılar","Üçgenler"],c:"tg",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — Trigonometri konu+soru",tags:["Temel özdeşlik","Birim çember","80 soru"],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Tekrar & Yanlış",tags:["Hata def."],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Sal",type:"fen",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Geom. Katı Cisimler",tags:["Katı Cisimler"],c:"tg",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Kim — Modern Atom Teorisi",tags:["Modern Atom"],c:"tp",d:"1.5 sa"},
+   {t:"14:45",n:"AYT Mat — Trig tekrar",tags:["Trig 50 soru"],c:"ta",d:"1.5 sa"},
+   {t:"16:15",n:"Yanlış Analizi",tags:["Hata def."],c:"tz",d:"45 dk"},
+  ]},
+  {l:"Çar",type:"mat",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Periyodik Tablo",tags:["Periyodik Tablo"],c:"tp",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — Trig soru maratonu",tags:["Trig","100 soru"],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Tekrar & Yanlış",tags:["Hata def."],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Per",type:"fen",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Fizik Dalgalar",tags:["Dalgalar"],c:"ta",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Kim — Gazlar",tags:["Gazlar"],c:"tp",d:"1.5 sa"},
+   {t:"14:45",n:"AYT Mat — Trig karma",tags:["Trig+Limit 50 soru"],c:"ta",d:"1.5 sa"},
+   {t:"16:15",n:"Yanlış Analizi",tags:["Hata def."],c:"tz",d:"45 dk"},
+  ]},
+  {l:"Cum",type:"tekrar",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Karma soru",tags:["Karma 40 soru"],c:"tz",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — Tüm konular karma",tags:["Log+Diz+2.Der+Par","100 soru"],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Tekrar & Yanlış",tags:["Hata def."],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Cmt",type:"den",b:[
+   {t:"08:00",n:"Isınma Para+Prob",tags:["×10+×10"],c:"tb",d:"45 dk"},
+   {t:"09:00",n:"TYT Denemesi",tags:["120 soru","165 dk"],c:"tt",d:"2s45dk"},
+   {t:"12:45",n:"AYT Kim soru",tags:["Gazlar+Atom 50 soru"],c:"tp",d:"1.5 sa"},
+   {t:"14:15",n:"Deneme Analizi",tags:["Net hesap"],c:"tz",d:"1.5 sa"},
+  ]},
+ ]},
+
+{w:5,f:2,title:"TYT Sosyal Tamamlama + AYT Mat SORU MARATONU",theme:"Tarih·Coğrafya·Felsefe·Din + Mat tüm konular karma 100 soru/gün",hrs:"~42 sa",net:"+3–5 net",
+ warn:"Bu hafta AYT Mat soru maratonu başlıyor — 80–100 soru/gün asla kısaltma!",
+ note:"TYT Sosyal hızlıca taranır (5 soru konuları, max 1 saat her biri). AYT Mat'ta artık tüm konular birikti: Logaritma, Diziler, 2.Derece, Parabol, Limit, Fonksiyon, Trigonometri — bunların karma sorusu yapılıyor.",
+ days:[
+  {l:"Pzt",type:"mat",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Sosyal Tarih",tags:["Tarih 5 soru"],c:"ts",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — Log+Diz+2.Derece karma",tags:["Karma","100 soru"],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Tekrar & Yanlış",tags:["Hata def."],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Sal",type:"fen",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Sosyal Coğrafya",tags:["Coğrafya 5 soru"],c:"ts",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Kim — Sıvı Çözeltiler",tags:["Çözeltiler","Çözünürlük"],c:"tp",d:"1.5 sa"},
+   {t:"14:45",n:"AYT Mat — Parabol+Limit karma",tags:["Karma 50 soru"],c:"ta",d:"1.5 sa"},
+   {t:"16:15",n:"Yanlış Analizi",tags:["Hata def."],c:"tz",d:"45 dk"},
+  ]},
+  {l:"Çar",type:"mat",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Sosyal Felsefe",tags:["Felsefe 5 soru"],c:"ts",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — Parabol+Limit+Fon karma",tags:["Karma","100 soru"],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Tekrar & Yanlış",tags:["Hata def."],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Per",type:"fen",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Sosyal Din",tags:["Din 5 soru"],c:"ts",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Kim — Kimyasal Hız",tags:["Reaksiyon Hızı"],c:"tp",d:"1.5 sa"},
+   {t:"14:45",n:"AYT Mat — Trig+Fon karma",tags:["Karma 50 soru"],c:"ta",d:"1.5 sa"},
+   {t:"16:15",n:"Yanlış Analizi",tags:["Hata def."],c:"tz",d:"45 dk"},
+  ]},
+  {l:"Cum",type:"tekrar",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Hata defteri tekrar",tags:["En zayıf konular"],c:"tz",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — TÜM KONULAR karma",tags:["Tam karma","100 soru"],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Tekrar & Yanlış",tags:["Hata def."],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Cmt",type:"den",b:[
+   {t:"08:00",n:"Isınma Para+Prob",tags:["×10+×10"],c:"tb",d:"45 dk"},
+   {t:"09:00",n:"TYT Denemesi",tags:["120 soru","165 dk"],c:"tt",d:"2s45dk"},
+   {t:"12:45",n:"AYT Mat branş",tags:["Tüm konular 60 soru"],c:"ta",d:"1.5 sa"},
+   {t:"14:15",n:"Deneme Analizi",tags:["Net hesap"],c:"tz",d:"1.5 sa"},
+  ]},
+ ]},
+
+{w:6,f:2,title:"TYT Karma + AYT Mat Soru Maratonu + AYT Kim Tamamlama",theme:"TYT karma soru · Mat zayıf konular hedefli · Kim Enerji tamamlama",hrs:"~42 sa",net:"+3–4 net",
+ warn:"Hata defterindeki mat yanlışlarını bu hafta bitir — 7. haftada yoktur",
+ note:"AYT Mat'ta soru sayısı kritik. Hata defterindeki yanlış konular hedeflenerek 100 soru/gün yapılıyor. Kimya bu hafta tamamlanıyor.",
+ days:[
+  {l:"Pzt",type:"mat",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Karma soru",tags:["Karma 40 soru"],c:"tz",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — Zayıf konular hedefli",tags:["Hata def. odaklı","100 soru"],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Tekrar & Yanlış",tags:["Hata def."],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Sal",type:"fen",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Karma soru",tags:["Karma 40 soru"],c:"tz",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Kim — Kimyasal Enerji",tags:["Termodinamik temel"],c:"tp",d:"1.5 sa"},
+   {t:"14:45",n:"AYT Mat — Karma soru",tags:["Karma 50 soru"],c:"ta",d:"1.5 sa"},
+   {t:"16:15",n:"Yanlış Analizi",tags:["Hata def."],c:"tz",d:"45 dk"},
+  ]},
+  {l:"Çar",type:"mat",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Karma soru",tags:["Karma 40 soru"],c:"tz",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — Branş denemesi",tags:["60 soru zamanlı"],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Tekrar & Yanlış",tags:["Hata def."],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Per",type:"fen",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Hata defteri",tags:["Zayıf konular"],c:"tz",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Kim — Karma soru",tags:["Tüm Kimya 50 soru"],c:"tp",d:"1.5 sa"},
+   {t:"14:45",n:"AYT Mat — Karma soru",tags:["Karma 50 soru"],c:"ta",d:"1.5 sa"},
+   {t:"16:15",n:"Yanlış Analizi",tags:["Hata def."],c:"tz",d:"45 dk"},
+  ]},
+  {l:"Cum",type:"mat",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Karma soru",tags:["Karma 40 soru"],c:"tz",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — Branş denemesi",tags:["60 soru zamanlı"],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Tekrar & Yanlış",tags:["Hata def."],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Cmt",type:"den",b:[
+   {t:"08:00",n:"Isınma Para+Prob",tags:["×10+×10"],c:"tb",d:"45 dk"},
+   {t:"09:00",n:"TYT Denemesi",tags:["120 soru","165 dk"],c:"tt",d:"2s45dk"},
+   {t:"12:45",n:"AYT Kim karma",tags:["Tüm Kim 60 soru"],c:"tp",d:"1.5 sa"},
+   {t:"14:15",n:"Deneme Analizi",tags:["Net hesap"],c:"tz",d:"1.5 sa"},
+  ]},
+ ]},
+
+{w:7,f:2,title:"AYT Fen Tamamlama (Fizik) + AYT Mat Pekiştirme",theme:"TYT karma · Fizik 3 konu + Mat tüm konular güçlü soru",hrs:"~42 sa",net:"+2–3 net",
+ warn:"Bu hafta Fizik 3 konusu bitiyor — ekoloji de girilecek",
+ note:"AYT Fizik bu hafta tamamlanıyor (Modern Fizik, Radyoaktivite, Çembersel Hareket). AYT Biyoloji'de Komünite Ekoloji tamamlanıyor. Tüm AYT konuları bu haftanın sonunda bitmiş olacak.",
+ days:[
+  {l:"Pzt",type:"mat",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Karma soru",tags:["Karma 40 soru"],c:"tz",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — Tüm konular karma",tags:["Karma","100 soru"],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Tekrar & Yanlış",tags:["Hata def."],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Sal",type:"fen",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Karma soru",tags:["Karma 40 soru"],c:"tz",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Bio — Komünite Ekoloji",tags:["Popülasyon","Komünite"],c:"tpu",d:"1.5 sa"},
+   {t:"14:45",n:"AYT Mat — Karma soru",tags:["Karma 50 soru"],c:"ta",d:"1.5 sa"},
+   {t:"16:15",n:"Yanlış Analizi",tags:["Hata def."],c:"tz",d:"45 dk"},
+  ]},
+  {l:"Çar",type:"mat",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Karma soru",tags:["Karma 40 soru"],c:"tz",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — Zayıf konular hedefli",tags:["Hata def. odaklı","100 soru"],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Tekrar & Yanlış",tags:["Hata def."],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Per",type:"fen",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Karma soru",tags:["Karma 40 soru"],c:"tz",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Fiz — Modern Fizik+Radyoaktivite",tags:["Modern Fiz","Radyoaktivite"],c:"ta",d:"1.5 sa"},
+   {t:"14:45",n:"AYT Mat — Karma soru",tags:["Karma 50 soru"],c:"ta",d:"1.5 sa"},
+   {t:"16:15",n:"Yanlış Analizi",tags:["Hata def."],c:"tz",d:"45 dk"},
+  ]},
+  {l:"Cum",type:"mat",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Karma soru",tags:["Karma 40 soru"],c:"tz",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — Branş denemesi",tags:["Tüm konular 80 soru zamanlı"],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Tekrar & Yanlış",tags:["Hata def."],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Cmt",type:"den",b:[
+   {t:"08:00",n:"Isınma Para+Prob",tags:["×10+×10"],c:"tb",d:"45 dk"},
+   {t:"09:00",n:"TYT Denemesi",tags:["120 soru","165 dk"],c:"tt",d:"2s45dk"},
+   {t:"12:45",n:"AYT Fiz — Çembersel+karma",tags:["Fiz tamamlama 50 soru"],c:"ta",d:"1.5 sa"},
+   {t:"14:15",n:"Deneme Analizi",tags:["7 hafta net değerlendirmesi"],c:"tz",d:"1.5 sa"},
+  ]},
+ ]},
+
+{w:8,f:3,title:"Branş Denemeleri — Faz 3 Başlıyor",theme:"TYT karma · AYT Mat+Fen branş denemeleri · Zayıf konuları tespit et",hrs:"~42 sa",net:"+1–2 net",
+ warn:"Artık yeni konu öğrenme! Zayıf konuları atla — zamana değmez",
+ note:"Faz 3 başladı. Branş denemeleri başlar. Yapamadığın soruları boş bırak — yapabileceklerini %100 doğrulukla işaretle. Bu hafta hangi konuların güçlü hangilerinin zayıf olduğunu netleştir.",
+ days:[
+  {l:"Pzt",type:"mat",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Karma soru",tags:["Karma 40 soru"],c:"tz",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — Branş denemesi",tags:["60 soru zamanlı"],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Branş yanlış analizi",tags:["Derin analiz"],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Sal",type:"fen",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Karma soru",tags:["Karma 40 soru"],c:"tz",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Bio — Branş denemesi",tags:["Sistemler+Genetik","40 soru"],c:"tpu",d:"1.5 sa"},
+   {t:"14:45",n:"AYT Mat — Branş yanlış tekrar",tags:["Yanlış konular"],c:"ta",d:"1.5 sa"},
+   {t:"16:15",n:"Yanlış Analizi",tags:["Hata def."],c:"tz",d:"45 dk"},
+  ]},
+  {l:"Çar",type:"mat",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Karma soru",tags:["Karma 40 soru"],c:"tz",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — Güçlü konular",tags:["Güçlü 100 soru"],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Tekrar & Yanlış",tags:["Hata def."],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Per",type:"fen",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Karma soru",tags:["Karma 40 soru"],c:"tz",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Kim — Branş denemesi",tags:["Kim 40 soru"],c:"tp",d:"1.5 sa"},
+   {t:"14:45",n:"AYT Mat — Karma soru",tags:["Karma 50 soru"],c:"ta",d:"1.5 sa"},
+   {t:"16:15",n:"Yanlış Analizi",tags:["Hata def."],c:"tz",d:"45 dk"},
+  ]},
+  {l:"Cum",type:"mat",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Karma soru",tags:["Karma 40 soru"],c:"tz",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — Branş denemesi",tags:["60 soru zamanlı","optik antren."],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Tekrar & Yanlış",tags:["Hata def."],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Cmt",type:"den",b:[
+   {t:"08:00",n:"Isınma Para+Prob",tags:["×10+×10"],c:"tb",d:"45 dk"},
+   {t:"09:00",n:"TYT Denemesi",tags:["120 soru","165 dk"],c:"tt",d:"2s45dk"},
+   {t:"12:45",n:"AYT Mat+Fen karma branş",tags:["Karma branş 60"],c:"ta",d:"1.5 sa"},
+   {t:"14:15",n:"Tam Analiz",tags:["TYT net","AYT net tahmini"],c:"tz",d:"1.5 sa"},
+  ]},
+ ]},
+
+{w:9,f:3,title:"Yoğun Deneme + Güçlü Konuları Kilitle",theme:"TYT+AYT karma denemeler · Optik antrenmanı · Süre yönetimi",hrs:"~42 sa",net:"+1–2 net",
+ warn:"Zayıf konulara zaman harcama — güçlü konuları pekiştir!",
+ note:"Bu haftadan itibaren zayıf konuları tamamen atla. Güçlü konularda 100 soru yap ve hepsini doğru yap. Optik işaretleme ve süre yönetimi antrenmanı kritik.",
+ days:[
+  {l:"Pzt",type:"mat",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Karma+optik",tags:["Süre yönetimi"],c:"tz",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — Güçlü konular",tags:["Log+Diz+Trig 100 soru"],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Tekrar & Yanlış",tags:["Son düzeltmeler"],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Sal",type:"fen",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Karma soru",tags:["Karma 40 soru"],c:"tz",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Bio — Güçlü sistemler",tags:["Güçlü 50 soru"],c:"tpu",d:"1.5 sa"},
+   {t:"14:45",n:"AYT Mat — Karma soru",tags:["Güçlü konular 50"],c:"ta",d:"1.5 sa"},
+   {t:"16:15",n:"Yanlış Analizi",tags:["Hata def."],c:"tz",d:"45 dk"},
+  ]},
+  {l:"Çar",type:"mat",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Karma soru",tags:["Karma 40 soru"],c:"tz",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — Branş denemesi",tags:["80 soru zamanlı"],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Tekrar & Yanlış",tags:["Hata def."],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Per",type:"fen",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Karma soru",tags:["Karma 40 soru"],c:"tz",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Kim+Fiz — Güçlü konular",tags:["Güçlü 50 soru"],c:"tp",d:"1.5 sa"},
+   {t:"14:45",n:"AYT Mat — Karma soru",tags:["Güçlü konular 50"],c:"ta",d:"1.5 sa"},
+   {t:"16:15",n:"Yanlış Analizi",tags:["Hata def."],c:"tz",d:"45 dk"},
+  ]},
+  {l:"Cum",type:"mat",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Optik antrenmanı",tags:["Süre+işaretleme"],c:"tz",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — Branş denemesi",tags:["80 soru zamanlı"],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Tekrar & Yanlış",tags:["Son düzeltmeler"],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Cmt",type:"den",b:[
+   {t:"08:00",n:"Isınma Para+Prob",tags:["×10+×10"],c:"tb",d:"45 dk"},
+   {t:"09:00",n:"TYT Denemesi",tags:["120 soru","165 dk"],c:"tt",d:"2s45dk"},
+   {t:"12:45",n:"AYT Mat+Fen karma",tags:["Son branş 60"],c:"ta",d:"1.5 sa"},
+   {t:"14:15",n:"Final Analiz",tags:["Strateji gözden geçir"],c:"tz",d:"1.5 sa"},
+  ]},
+ ]},
+
+{w:10,f:3,title:"Final Haftası — Tam YKS Seti Denemesi",theme:"Hafif tekrar · Tam set deneme · Sınav psikolojisi",hrs:"~36 sa",net:"ölçüm günü",
+ warn:"Bu hafta yeni konu öğrenme! Bildiklerini kilitle. Bol uyku, iyi beslen.",
+ note:"Son hafta tempo hafifler. Yeni hiçbir şey öğrenilmez. Cuma günü erken bitir ve erken uyu. Cumartesi tam YKS seti (TYT + AYT Sayısal). 10 haftalık çalışmanın ölçüm günü.",
+ days:[
+  {l:"Pzt",type:"mat",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — En güçlü konular",tags:["Seçili karma"],c:"tz",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — En güçlü 80 soru",tags:["Güçlü konular"],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Hafif tekrar",tags:["Kısa notlar"],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Sal",type:"fen",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Karma soru",tags:["Karma 30 soru"],c:"tz",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Bio — En güçlü sistemler",tags:["Güçlü 40 soru"],c:"tpu",d:"1.5 sa"},
+   {t:"14:45",n:"AYT Mat — Karma soru",tags:["Karma 40 soru"],c:"ta",d:"1.5 sa"},
+   {t:"16:15",n:"Hafif tekrar",tags:["Notları gözden geçir"],c:"tz",d:"45 dk"},
+  ]},
+  {l:"Çar",type:"mat",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Karma soru",tags:["Karma 30 soru"],c:"tz",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Mat — Branş denemesi",tags:["60 soru son kez"],c:"ta",d:"2.5 sa"},
+   {t:"15:45",n:"Hafif tekrar",tags:["Kısa notlar"],c:"tz",d:"1 sa"},
+  ]},
+  {l:"Per",type:"fen",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×15","Prob×20"],c:"tb",d:"2 sa"},
+   {t:"10:15",n:"TYT — Karma soru",tags:["Karma 30 soru"],c:"tz",d:"1.5 sa"},
+   {t:"13:00",n:"AYT Kim+Fiz — En güçlü",tags:["Güçlü 40 soru"],c:"tp",d:"1.5 sa"},
+   {t:"14:45",n:"AYT Mat — Son karma",tags:["Karma 40 soru"],c:"ta",d:"1.5 sa"},
+   {t:"16:15",n:"Hafif tekrar",tags:["Notları gözden geçir"],c:"tz",d:"45 dk"},
+  ]},
+  {l:"Cum",type:"hafif",b:[
+   {t:"08:00",n:"Paragraf + Problem",tags:["Para×10","Prob×10"],c:"tb",d:"1 sa"},
+   {t:"09:15",n:"TYT + AYT Hafif tekrar",tags:["Saat+tempo","Optik"],c:"tz",d:"1 sa"},
+   {t:"10:30",n:"ERken BİTİR — Dinlen",tags:["Erken uyu","İyi beslen"],c:"tt",d:"serbest"},
+  ]},
+  {l:"Cmt",type:"den",b:[
+   {t:"07:30",n:"Erken Uyanış",tags:["Sınav saati gibi"],c:"tz",d:"30 dk"},
+   {t:"08:30",n:"Isınma",tags:["5 para","5 prob"],c:"tb",d:"30 dk"},
+   {t:"09:00",n:"TAM YKS — TYT",tags:["120 soru","165 dk"],c:"tt",d:"2s45dk"},
+   {t:"13:00",n:"TAM YKS — AYT Sayısal",tags:["Mat+Fen","180 dk"],c:"tt",d:"3 sa"},
+   {t:"16:30",n:"Son Analiz",tags:["Final net","Strateji"],c:"tz",d:"1.5 sa"},
+  ]},
+ ]},
+];
+
+const LS_KEY='yks-ticks-v1';
+function loadTicks(){try{return JSON.parse(localStorage.getItem(LS_KEY)||'{}')}catch{return {}}}
+function saveTicks(obj){try{localStorage.setItem(LS_KEY,JSON.stringify(obj))}catch{}}
+
+function build(){
+  const c=document.getElementById('wk-container');
+  const ticks=loadTicks();
+
+  WKS.forEach((w,i)=>{
+    const fCls=`f${w.f}`;
+    const nCls=w.net==='ölçüm günü'?'net-b':'net-g';
+    const el=document.createElement('div');
+    el.className='wk'+(i===0?' open':'');
+
+    // Count total blocks for this week (week 1 starts Wed, skip Mon+Tue)
+    const shownDays=w.w===1?w.days.slice(2):w.days;
+    let totalBlocks=0;
+    shownDays.forEach(d=>totalBlocks+=d.b.length);
+
+    el.innerHTML=`
+      <div class="wk-h">
+        <div class="wk-hl">
+          <span class="wk-num ${fCls}">H${w.w}</span>
+          <div class="wk-txt">
+            <div class="wk-title">${w.title}</div>
+            <div class="wk-theme">${w.theme}</div>
+          </div>
+        </div>
+        <div class="wk-hr">
+          <span class="wk-hrs">${w.hrs}</span>
+          <div class="wk-prog">
+            <span class="prog-text" data-prog="w${w.w}">0/${totalBlocks}</span>
+            <div class="prog-bar"><div class="prog-fill" data-bar="w${w.w}" style="width:0%"></div></div>
+          </div>
+          <span class="wk-net ${nCls}">${w.net}</span>
+          <button class="wk-reset" data-week="${w.w}" title="Bu haftayı sıfırla">↺</button>
+          <span class="chev">▼</span>
+        </div>
+      </div>
+      <div class="wk-body">
+        <div class="day-grid" id="dg-w${w.w}"></div>
+        <div class="wk-ft">
+          ${w.warn?`<span class="wk-ft-warn">⚠ ${w.warn}</span>`:''}
+          <span class="wk-ft-note"><strong>Not:</strong> ${w.note}</span>
+        </div>
+      </div>`;
+
+    // Build day columns — week 1 starts Wednesday (days 0-1 skipped)
+    const dg=el.querySelector(`#dg-w${w.w}`);
+    const displayDays=w.w===1?w.days.slice(2):w.days;
+    displayDays.forEach((d,di)=>{
+      const tCls=d.type==='mat'?'mat':d.type==='fen'?'fen':d.type==='den'?'den':'';
+      const col=document.createElement('div');
+      col.className='dc';
+      col.innerHTML=`<div class="dc-lbl ${tCls}">${d.l}${d.type==='den'?' 📋':d.type==='mat'?' 📐':d.type==='fen'?' 🔬':''}</div>`;
+      d.b.forEach((b,bi)=>{
+        const dayOffset=w.w===1?2:0;
+        const key=`w${w.w}-d${di+dayOffset}-b${bi}`;
+        const done=!!ticks[key];
+        const db=document.createElement('div');
+        db.className='db'+(done?' done':'');
+        db.dataset.key=key;
+        db.dataset.week=`w${w.w}`;
+        db.innerHTML=`
+          <button class="tick-btn" title="Tamamlandı olarak işaretle"></button>
+          <div class="db-t">${b.t}</div>
+          <div class="db-n">${b.n}</div>
+          <div class="db-tags">${b.tags.map(t=>`<span class="tag ${b.c}">${t}</span>`).join('')}</div>
+          <div class="db-dur">${b.d}</div>`;
+
+        // Tick click
+        db.querySelector('.tick-btn').addEventListener('click',e=>{
+          e.stopPropagation();
+          const t2=loadTicks();
+          if(t2[key])delete t2[key];
+          else t2[key]=1;
+          saveTicks(t2);
+          db.classList.toggle('done');
+          updateProgress(w.w,totalBlocks);
+        });
+        // Row click also toggles
+        db.addEventListener('click',()=>{
+          const t2=loadTicks();
+          if(t2[key])delete t2[key];
+          else t2[key]=1;
+          saveTicks(t2);
+          db.classList.toggle('done');
+          updateProgress(w.w,totalBlocks);
+        });
+        col.appendChild(db);
+      });
+      dg.appendChild(col);
+    });
+
+    // Header toggle (only on non-button clicks)
+    el.querySelector('.wk-h').addEventListener('click',e=>{
+      if(!e.target.closest('.wk-reset'))el.classList.toggle('open');
+    });
+
+    // Reset button
+    el.querySelector('.wk-reset').addEventListener('click',e=>{
+      e.stopPropagation();
+      if(!confirm(`Hafta ${w.w} tüm tiklemeler sıfırlansın mı?`))return;
+      const t2=loadTicks();
+      Object.keys(t2).forEach(k=>{if(k.startsWith(`w${w.w}-`))delete t2[k];});
+      saveTicks(t2);
+      el.querySelectorAll('.db.done').forEach(db=>db.classList.remove('done'));
+      updateProgress(w.w,totalBlocks);
+    });
+
+    c.appendChild(el);
+    updateProgress(w.w,totalBlocks);
   });
-  const count = done.length;
-  const pct = Math.round((count / TOTAL) * 100);
-  document.getElementById('prog-label').textContent = count + ' / ' + TOTAL + ' konu';
-  document.getElementById('prog-fill').style.width = pct + '%';
-  const dc = document.getElementById('done-count');
-  if (dc) dc.textContent = count + ' / ' + TOTAL;
 }
 
-function resetAll() {
-  if (confirm('Tüm tamamlanan konular sıfırlansın mı?')) {
-    saveDone([]);
-    applyState([]);
+function updateProgress(weekNum,total){
+  const t=loadTicks();
+  const done=Object.keys(t).filter(k=>k.startsWith(`w${weekNum}-`)).length;
+  const pct=total>0?Math.round(done/total*100):0;
+  const progText=document.querySelector(`[data-prog="w${weekNum}"]`);
+  const progBar=document.querySelector(`[data-bar="w${weekNum}"]`);
+  if(progText)progText.textContent=`${done}/${total}`;
+  if(progBar){
+    progBar.style.width=pct+'%';
+    progBar.closest('.prog-bar').classList.toggle('prog-100',pct===100);
   }
 }
 
-function show(i) {
-  document.querySelectorAll('.week-body').forEach((el, idx) => el.classList.toggle('visible', idx === i));
-  document.querySelectorAll('.tab').forEach((el, idx) => el.classList.toggle('active', idx === i));
-}
+const btn=document.getElementById('themeBtn');
+const html=document.documentElement;
+function applyTheme(t){html.setAttribute('data-theme',t);btn.textContent=t==='dark'?'☀️':'🌙';localStorage.setItem('yks-opt',t)}
+btn.addEventListener('click',()=>applyTheme(html.getAttribute('data-theme')==='dark'?'light':'dark'));
+const sv=localStorage.getItem('yks-opt');
+if(sv)applyTheme(sv);
+else if(window.matchMedia('(prefers-color-scheme: dark)').matches)applyTheme('dark');
 
-function toggleTheme() {
-  const html = document.documentElement;
-  const isDark = html.getAttribute('data-theme') === 'dark';
-  const next = isDark ? 'light' : 'dark';
-  html.setAttribute('data-theme', next);
-  document.getElementById('theme-btn').textContent = isDark ? 'Karanlık mod' : 'Aydınlık mod';
-  try { localStorage.setItem(LS_THEME, next); } catch {}
-}
-
-(function init() {
-  try {
-    const saved = localStorage.getItem(LS_THEME);
-    if (saved) {
-      document.documentElement.setAttribute('data-theme', saved);
-      document.getElementById('theme-btn').textContent = saved === 'dark' ? 'Aydınlık mod' : 'Karanlık mod';
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      document.getElementById('theme-btn').textContent = 'Aydınlık mod';
-    }
-  } catch {}
-  applyState(loadDone());
-})();
+build();
 </script>
 </body>
 </html>
