@@ -216,16 +216,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--t);font-s
 <!-- GÜNLÜK YAPISI -->
 <section class="sec">
   <div class="sec-h">Günlük Yapı</div>
-  <div class="sec-d">2 gün tipi — fen günü ve mat/türkçe/problem günü</div>
+  <div class="sec-d">2 gün tipi — fen günü (2 farklı branş) ve mat/türkçe/problem günü</div>
   <div class="day-tmpl">
     <div class="dtc">
       <div class="dtc-h">FEN GÜNÜ (Sal · Per · Cmt) <span class="dtc-badge" style="background:var(--green-t);color:#fff">6–6.5 SA</span></div>
       <div class="dtb">
-        <div class="dr"><div class="dt">08:00</div><div class="di"><div class="dn" style="color:var(--green-t)">▶ Konu 1 — Anlatım + Soru</div><div class="ds">Ders notu veya video → hemen ardından o konudan 25–30 soru</div><span class="ddur">2.5 sa</span></div></div>
-        <div class="dr"><div class="dt">10:45</div><div class="di"><div class="dn" style="color:var(--green-t)">▶ Konu 2 — Anlatım + Soru</div><div class="ds">Aynı mantık — 2. konu anlatım + 25–30 soru</div><span class="ddur">2.5 sa</span></div></div>
+        <div class="dr"><div class="dt">08:00</div><div class="di"><div class="dn" style="color:var(--green-t)">▶ Branş A — Anlatım + Soru</div><div class="ds">1. ders anlatımı → hemen ardından o konudan 25–30 soru</div><span class="ddur">2.5 sa</span></div></div>
+        <div class="dr"><div class="dt">10:45</div><div class="di"><div class="dn" style="color:var(--blue-t)">▶ Branş B — Anlatım + Soru</div><div class="ds">Farklı ders — 2. konu anlatımı + 25–30 soru</div><span class="ddur">2.5 sa</span></div></div>
         <div class="dr"><div class="dt">13:45</div><div class="di"><div class="dn">Öğle Molası</div><span class="ddur">45 dk</span></div></div>
-        <div class="dr"><div class="dt">14:30</div><div class="di"><div class="dn">Tekrar & Yanlış Analizi</div><div class="ds">Günün yanlışlarını hata defterine geç, her konudan 10 yanlış tekrar çöz</div><span class="ddur">1.5 sa</span></div></div>
-        <div class="dr"><div class="dt">16:00</div><div class="di"><div class="dn">Serbest Zaman</div><div class="ds">Dinlen</div></div></div>
+        <div class="dr"><div class="dt">14:30</div><div class="di"><div class="dn">Tekrar & Yanlış Analizi</div><div class="ds">Her iki dersin yanlışlarını hata defterine geç, her konudan 10 yanlış tekrar çöz</div><span class="ddur">1.5 sa</span></div></div>
+        <div class="dr"><div class="dt">16:00</div><div class="di"><div class="dn">Serbest Zaman</div></div></div>
       </div>
     </div>
     <div class="dtc">
@@ -312,8 +312,8 @@ const TOPICS=[
 
 // HAFTALIK VERİ
 const WKS=[
-{w:1,cls:'wn1',title:'Temel İnşa (Kısmi)',theme:'Mat: Sayılar · Fen: Bio Hücre · Mat: Bölünebilme',
- note:'Sadece 3 gün — Cuma, Cumartesi, Pazar. Hafta 2 Pazartesi\'den normal başlıyor.',
+{w:1,cls:'wn1',title:'Temel İnşa (Kısmi)',theme:'Mat: Sayılar · Bio+Kim: Hücre Yapısı & Kimya Giriş · Mat: Bölünebilme',
+ note:'Sadece 3 gün — Cuma, Cumartesi, Pazar. Cumartesi fen günü: Bio Hücre Yapısı + Kim Temel Kavramlar. Hafta 2 Pazartesi\'den normal başlıyor.',
  days:[
   {l:'Cum ★',t:'mat',blocks:[
     {ti:'08:00',n:'Paragraf',tags:['×15 soru'],c:'tb',d:'1.5 sa'},
@@ -322,7 +322,7 @@ const WKS=[
   ]},
   {l:'Cmt',t:'fen',blocks:[
     {ti:'08:00',n:'Bio — Hücre Yapısı & Zarı',tags:['Anlatım','25 soru'],c:'tg',d:'2.5 sa'},
-    {ti:'10:45',n:'Bio — Hücre Organelleri',tags:['Anlatım','25 soru'],c:'tg',d:'2.5 sa'},
+    {ti:'10:45',n:'Kim — Kimyanın Temel Kavramları',tags:['Anlatım','25 soru'],c:'tb',d:'2.5 sa'},
     {ti:'14:30',n:'Tekrar & Yanlış',tags:['Hata def.'],c:'tz',d:'1.5 sa'},
   ]},
   {l:'Paz',t:'mat',blocks:[
@@ -332,8 +332,8 @@ const WKS=[
   ]},
  ]},
 
-{w:2,cls:'wn2',title:'Bağlantı Haftası',theme:'Bio: Temel Bileşenler+Sınıf · Kim: Atom+Periyodik · Fiz: Isı+Basınç · Mat: Çarpanlara Ayırma+Denklem+Oran-Orantı',
- note:'Bio\'da temel bileşenler ve sınıflandırma. Kim\'de atom ve periyodik tablo. Mat\'ta çarpanlara ayırma ve denklem — problem kitabındaki oran-orantı başlığına bu hafta gir.',
+{w:2,cls:'wn2',title:'Bağlantı Haftası',theme:'Bio+Kim · Bio+Fiz · Bio+Fiz · Mat: Çarpanlara+Denklem+Oran-Orantı',
+ note:'Her fen gününde farklı 2 branş. Bio Organeller+Kim Madde → Bio Temel Bileşenler+Fiz Birimler → Bio Sınıflandırma+Fiz Madde. Problem kitabında oran-orantı başlığına gir.',
  days:[
   {l:'Pzt',t:'mat',blocks:[
     {ti:'08:00',n:'Paragraf',tags:['×15 soru'],c:'tb',d:'1.5 sa'},
@@ -341,8 +341,8 @@ const WKS=[
     {ti:'12:00',n:'Mat — Çarpanlara Ayırma',tags:['Konu+soru'],c:'tp',d:'4 sa'},
   ]},
   {l:'Sal',t:'fen',blocks:[
-    {ti:'08:00',n:'Bio — Canlıların Temel Bileşenleri',tags:['Anlatım','25 soru'],c:'tg',d:'2.5 sa'},
-    {ti:'10:45',n:'Bio — Canlıların Sınıflandırılması',tags:['Anlatım','25 soru'],c:'tg',d:'2.5 sa'},
+    {ti:'08:00',n:'Bio — Hücre Organelleri',tags:['Anlatım','25 soru'],c:'tg',d:'2.5 sa'},
+    {ti:'10:45',n:'Kim — Madde ve Özellikleri',tags:['Anlatım','25 soru'],c:'tb',d:'2.5 sa'},
     {ti:'14:30',n:'Tekrar & Yanlış',tags:['Hata def.'],c:'tz',d:'1.5 sa'},
   ]},
   {l:'Çar',t:'mat',blocks:[
@@ -351,8 +351,8 @@ const WKS=[
     {ti:'12:00',n:'Mat — 1. Derece Denklemler',tags:['Konu+soru'],c:'tp',d:'4 sa'},
   ]},
   {l:'Per',t:'fen',blocks:[
-    {ti:'08:00',n:'Kim — Atom Yapısı',tags:['Anlatım','25 soru'],c:'tb',d:'2.5 sa'},
-    {ti:'10:45',n:'Kim — Periyodik Sistem',tags:['Anlatım','25 soru'],c:'tb',d:'2.5 sa'},
+    {ti:'08:00',n:'Bio — Canlıların Temel Bileşenleri',tags:['Anlatım','25 soru'],c:'tg',d:'2.5 sa'},
+    {ti:'10:45',n:'Fiz — Birimler & Ölçme',tags:['Anlatım','20 soru'],c:'ta',d:'2.5 sa'},
     {ti:'14:30',n:'Tekrar & Yanlış',tags:['Hata def.'],c:'tz',d:'1.5 sa'},
   ]},
   {l:'Cum',t:'mat',blocks:[
@@ -361,14 +361,14 @@ const WKS=[
     {ti:'12:00',n:'Mat — Oran-Orantı',tags:['Konu+soru'],c:'tp',d:'4 sa'},
   ]},
   {l:'Cmt',t:'fen',blocks:[
-    {ti:'08:00',n:'Fiz — Isı & Sıcaklık',tags:['Anlatım','25 soru'],c:'ta',d:'2.5 sa'},
-    {ti:'10:45',n:'Fiz — Basınç',tags:['Anlatım','25 soru'],c:'ta',d:'2.5 sa'},
+    {ti:'08:00',n:'Bio — Canlıların Sınıflandırılması',tags:['Anlatım','25 soru'],c:'tg',d:'2.5 sa'},
+    {ti:'10:45',n:'Fiz — Madde ve Özellikleri',tags:['Anlatım','25 soru'],c:'ta',d:'2.5 sa'},
     {ti:'14:30',n:'Tekrar & Yanlış',tags:['Hata def.'],c:'tz',d:'1.5 sa'},
   ]},
  ]},
 
-{w:3,cls:'wn3',title:'Orta Geçiş',theme:'Bio: Mitoz+Mayoz · Kim: Kimyasal Türler · Fiz: Kuvvet+Hareket · Mat: Yüzde+Kümeler+Mantık',
- note:'Bio\'da mitoz ve mayoz — hücre bilgisi oturduğu için artık rahat. Kim\'de bağlar ve türler. Fiz\'de kuvvet-hareket (en çok soru gelen bölüm). Mat\'ta yüzde-kâr-zarar ve kümeler.',
+{w:3,cls:'wn3',title:'Orta Geçiş',theme:'Bio+Kim · Bio+Fiz · Kim+Fiz · Mat: Yüzde+Kümeler+Mantık',
+ note:'Sal: Bio Mitoz + Kim Atom. Per: Bio Mayoz + Fiz Isı. Cmt: Kim Kimyasal Türler + Fiz Basınç. Bu hafta Bio tamamen bitti, Kim ve Fiz devam ediyor.',
  days:[
   {l:'Pzt',t:'mat',blocks:[
     {ti:'08:00',n:'Paragraf',tags:['×15 soru'],c:'tb',d:'1.5 sa'},
@@ -377,7 +377,7 @@ const WKS=[
   ]},
   {l:'Sal',t:'fen',blocks:[
     {ti:'08:00',n:'Bio — Mitoz Bölünme',tags:['Anlatım','25 soru'],c:'tg',d:'2.5 sa'},
-    {ti:'10:45',n:'Bio — Mayoz Bölünme',tags:['Anlatım','25 soru'],c:'tg',d:'2.5 sa'},
+    {ti:'10:45',n:'Kim — Atom Yapısı + Periyodik Sistem',tags:['Anlatım','25 soru'],c:'tb',d:'2.5 sa'},
     {ti:'14:30',n:'Tekrar & Yanlış',tags:['Hata def.'],c:'tz',d:'1.5 sa'},
   ]},
   {l:'Çar',t:'mat',blocks:[
@@ -386,8 +386,8 @@ const WKS=[
     {ti:'12:00',n:'Mat — Kümeler',tags:['Konu+soru'],c:'tp',d:'4 sa'},
   ]},
   {l:'Per',t:'fen',blocks:[
-    {ti:'08:00',n:'Kim — Kimyasal Bağlar',tags:['Anlatım','25 soru'],c:'tb',d:'2.5 sa'},
-    {ti:'10:45',n:'Kim — Kimyasal Türler Arası Etkileşim',tags:['Anlatım','25 soru'],c:'tb',d:'2.5 sa'},
+    {ti:'08:00',n:'Bio — Mayoz Bölünme',tags:['Anlatım','25 soru'],c:'tg',d:'2.5 sa'},
+    {ti:'10:45',n:'Fiz — Isı & Sıcaklık',tags:['Anlatım','25 soru'],c:'ta',d:'2.5 sa'},
     {ti:'14:30',n:'Tekrar & Yanlış',tags:['Hata def.'],c:'tz',d:'1.5 sa'},
   ]},
   {l:'Cum',t:'mat',blocks:[
@@ -396,14 +396,14 @@ const WKS=[
     {ti:'12:00',n:'Mat — Mantık',tags:['Konu+soru'],c:'tp',d:'4 sa'},
   ]},
   {l:'Cmt',t:'fen',blocks:[
-    {ti:'08:00',n:'Fiz — Kuvvet',tags:['Anlatım','25 soru'],c:'ta',d:'2.5 sa'},
-    {ti:'10:45',n:'Fiz — Hareket (Newton)',tags:['Anlatım','25 soru'],c:'ta',d:'2.5 sa'},
+    {ti:'08:00',n:'Kim — Kimyasal Türler Arası Etkileşim',tags:['Anlatım','25 soru'],c:'tb',d:'2.5 sa'},
+    {ti:'10:45',n:'Fiz — Basınç',tags:['Anlatım','25 soru'],c:'ta',d:'2.5 sa'},
     {ti:'14:30',n:'Tekrar & Yanlış',tags:['Hata def.'],c:'tz',d:'1.5 sa'},
   ]},
  ]},
 
-{w:4,cls:'wn4',title:'Kapanış & Pekiştirme',theme:'Bio: Kalıtım+Ekosistem · Kim: Asit-Baz+Karışım · Fiz: Elektrik+Dalgalar · Mat: Perm-Komb-Olas+İstatistik',
- note:'Son hafta. Bio\'da kalıtım (Mendel). Kim\'de asit-baz ve karışım. Fiz\'de elektrik ve dalgalar. Matematikte olasılık ve istatistik tamamlanır. Haftanın son günü tüm konuların özet tekrarı yapılır.',
+{w:4,cls:'wn4',title:'Kapanış & Pekiştirme',theme:'Bio+Kim · Bio+Fiz · Kim+Fiz · Mat: Perm-Komb-Olas+İstatistik',
+ note:'Sal: Bio Kalıtım + Kim Asit-Baz. Per: Bio Ekosistem + Fiz Kuvvet-Hareket. Cmt: Kim Karışımlar + Fiz Elektrik-Dalgalar (ikisi birlikte, TYT\'de hafif). Tüm fen konuları bu hafta biter.',
  days:[
   {l:'Pzt',t:'mat',blocks:[
     {ti:'08:00',n:'Paragraf',tags:['×15 soru'],c:'tb',d:'1.5 sa'},
@@ -412,8 +412,8 @@ const WKS=[
   ]},
   {l:'Sal',t:'fen',blocks:[
     {ti:'08:00',n:'Bio — Kalıtım (Mendel İlkeleri)',tags:['Anlatım','30 soru'],c:'tg',d:'2.5 sa'},
-    {ti:'10:45',n:'Bio — Ekosistem & Çevre Ekolojisi',tags:['Anlatım','25 soru'],c:'tg',d:'2.5 sa'},
-    {ti:'14:30',n:'Bio Genel Tekrar',tags:['Tüm konular','Hata def.'],c:'tz',d:'1.5 sa'},
+    {ti:'10:45',n:'Kim — Asit-Baz Dengesi',tags:['Anlatım','25 soru'],c:'tb',d:'2.5 sa'},
+    {ti:'14:30',n:'Tekrar & Yanlış',tags:['Hata def.'],c:'tz',d:'1.5 sa'},
   ]},
   {l:'Çar',t:'mat',blocks:[
     {ti:'08:00',n:'Paragraf',tags:['×15 soru'],c:'tb',d:'1.5 sa'},
@@ -421,9 +421,9 @@ const WKS=[
     {ti:'12:00',n:'Mat — Olasılık',tags:['Konu+soru'],c:'tp',d:'4 sa'},
   ]},
   {l:'Per',t:'fen',blocks:[
-    {ti:'08:00',n:'Kim — Asit-Baz Dengesi',tags:['Anlatım','25 soru'],c:'tb',d:'2.5 sa'},
-    {ti:'10:45',n:'Kim — Karışımlar',tags:['Anlatım','25 soru'],c:'tb',d:'2.5 sa'},
-    {ti:'14:30',n:'Kim Genel Tekrar',tags:['Tüm konular','Hata def.'],c:'tz',d:'1.5 sa'},
+    {ti:'08:00',n:'Bio — Ekosistem & Çevre Ekolojisi',tags:['Anlatım','25 soru'],c:'tg',d:'2.5 sa'},
+    {ti:'10:45',n:'Fiz — Kuvvet & Hareket (Newton)',tags:['Anlatım','25 soru'],c:'ta',d:'2.5 sa'},
+    {ti:'14:30',n:'Tekrar & Yanlış',tags:['Hata def.'],c:'tz',d:'1.5 sa'},
   ]},
   {l:'Cum',t:'mat',blocks:[
     {ti:'08:00',n:'Paragraf',tags:['×15 soru'],c:'tb',d:'1.5 sa'},
@@ -431,9 +431,9 @@ const WKS=[
     {ti:'12:00',n:'Mat — İstatistik & Veri + GENEL TEKRAR',tags:['İstatistik','Tüm mat tekrar'],c:'tp',d:'4 sa'},
   ]},
   {l:'Cmt',t:'fen',blocks:[
-    {ti:'08:00',n:'Fiz — Elektrik',tags:['Anlatım','25 soru'],c:'ta',d:'2.5 sa'},
-    {ti:'10:45',n:'Fiz — Dalgalar, Ses & Işık',tags:['Anlatım','20 soru'],c:'ta',d:'2.5 sa'},
-    {ti:'14:30',n:'Fiz Genel Tekrar',tags:['Tüm konular','Hata def.'],c:'tz',d:'1.5 sa'},
+    {ti:'08:00',n:'Kim — Karışımlar',tags:['Anlatım','25 soru'],c:'tb',d:'2.5 sa'},
+    {ti:'10:45',n:'Fiz — Elektrik + Dalgalar & Ses',tags:['Anlatım','20 soru','TYT hafif'],c:'ta',d:'2.5 sa'},
+    {ti:'14:30',n:'Fen Genel Tekrar',tags:['Bio+Kim+Fiz','Hata def.'],c:'tz',d:'1.5 sa'},
   ]},
  ]},
 ];
